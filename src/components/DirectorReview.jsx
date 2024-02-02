@@ -1,23 +1,28 @@
-// DirectorReviewPage.jsx
 'use client'
+import React, { useRef,useState } from 'react';
+import SignatureCanvas from 'react-signature-canvas';
 
-import React, { useState } from 'react';
-
-const DirectorReviewPage = () => {
+const DirectorReview = () => {
+  // const signatureCanvasRef = useRef(null);
+  const signatureCanvasRef = useRef(null);
   const [signature, setSignature] = useState('');
   const [reply, setReply] = useState('');
 
   const handleSign = () => {
-    // Implement logic to capture the Director's signature
-    setSignature('Director Signature Here');
+    if (signatureCanvasRef.current.isEmpty()) {
+      alert('Please sign before submitting.');
+    } else {
+      setSignature(signatureCanvasRef.current.toDataURL());
+    }
   };
 
   const handleReplyChange = (event) => {
-    // Update the reply as the Director types
     setReply(event.target.value);
   };
 
   const handleSubmit = () => {
+    console.log('Director Signature:', signature);
+    console.log('Director Reply:', reply);
     // Implement logic to submit the Director's signature and reply
     // Call the API endpoint created for Director's submission
     // Redirect to the next step or show a success message
@@ -26,9 +31,19 @@ const DirectorReviewPage = () => {
   return (
     <div>
       <h1>Director's Review Page</h1>
-      <button onClick={handleSign}>Sign</button>
+      <div>
+        <label>Director Signature:</label>
+        <br />
+        {/* <SignatureCanvas ref={signatureCanvasRef} canvasProps={{ width: 400, height: 150, className: 'signature-canvas' }} /> */}
+         {/* Your component content... */}
+      <SignatureCanvas ref={signatureCanvasRef} />
+      {/* More of your component content... */}
+        <br />
+        <button onClick={handleSign}>Sign</button>
+      </div>
       <div>
         <label>Director Reply:</label>
+        <br />
         <textarea value={reply} onChange={handleReplyChange}></textarea>
       </div>
       <button onClick={handleSubmit}>Submit</button>
@@ -36,4 +51,4 @@ const DirectorReviewPage = () => {
   );
 };
 
-export default DirectorReviewPage;
+export default DirectorReview;
