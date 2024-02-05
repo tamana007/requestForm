@@ -3,11 +3,10 @@ import React, { useRef, useState } from 'react';
 import SignatureCanvas from 'react-signature-canvas';
 import { IoPencilOutline } from 'react-icons/io5';
 import styles from '../Style/DirectorReview.module.css'; // Create a CSS file for styling
-import AccountsReview from './AccountsReview';
+// import AccountsReview from './AccountsReview';
+// import React from 'react'
 
-
-
-const DirectorReview = ({accountFunc,account}) => {
+function AccountsReview({}) {
   const signatureCanvasRef = useRef(null);
   const [signature, setSignature] = useState('');
   const [reply, setReply] = useState('');
@@ -34,9 +33,9 @@ const DirectorReview = ({accountFunc,account}) => {
 
   return (
     <div className={styles.centered}>
-      <h1  className={styles.title}>Director's Review Page</h1>
+      <h1  className={styles.title}>Account's Review Page</h1>
       <div>
-        <label>Director Signature:</label>
+        <label>Accounts Signature:</label>
         <br />
         <SignatureCanvas
           ref={signatureCanvasRef}
@@ -57,15 +56,16 @@ const DirectorReview = ({accountFunc,account}) => {
         </button>
       </div>
       <div>
-        <label className={styles.replySection}>Director Reply:</label>
+        <label className={styles.replySection}>Account Reply:</label>
         <br />
         <textarea value={reply} onChange={handleReplyChange}></textarea>
       </div>
-      <button className={styles.accountsBtn} onClick={accountFunc}>Send To Accounts</button>
+      <button className={styles.accountsBtn} >Send To Vendor</button>
       
-      {account &&<AccountsReview/> }
+      {/* {account &&<AccountsReview/> } */}
     </div>
   );
 };
+// }
 
-export default DirectorReview;
+export default AccountsReview

@@ -2,31 +2,16 @@
 
 import React, { useState } from "react";
 import { options, questions } from "@/data/options"; // Import questions array
-import Logo from "./Logo";
+// import Logo from "./Logo";
 import { NodeAction } from "@/data/action";
 import Link from 'next/link';
 import DirectorReview from "./DirectorReview";
 
 
-function TempComponent() {
-  // let acc = {};
+function TempComponent({directorFunc}) {
+  
 
-  // for(let i=0 ; i <= options; i++){
-  //   acc[options[i]] = false;
-  // }
-
-  // acc = {
-  //   1:false,
-  //   2:false,
-  //   3:false,
-  //   4:false,
-  //   5:false,
-  // }
-  const[director,setDirector]=useState(false);
-
-  function directorFunc(){
-    setDirector(true);
-  }
+  
 
   const [printOptions, setPrintOptions] = useState(
     options.reduce((acc, option) => {
@@ -100,7 +85,7 @@ function TempComponent() {
 
   return (
     <div className="form-container">
-      <Logo />
+      {/* <Logo /> */}
       <h1>Marketing Request Form</h1>
       <h2>All requests need to be submitted at least one week in advance</h2>
 
@@ -180,7 +165,7 @@ function TempComponent() {
           Go to Director's Review Page
         </Link> */}
 
-        {director &&  <DirectorReview/> }
+        {/* {director &&  <DirectorReview/> } */}
        
       </form>
     </div>

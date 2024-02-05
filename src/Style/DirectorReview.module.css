@@ -1,0 +1,17 @@
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* color: brown; */
+}
+.title {
+  margin-top: -50px; /* Adjust the value based on your preference */
+}
+
+.replySection {
+  margin-top: 80px; /* Add space between Director's Reply and Please Sign button */
+}
+.accountsBtn{
+  margin-top: 30px;
+}
