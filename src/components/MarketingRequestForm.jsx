@@ -123,9 +123,7 @@ const MarketingRequestForm = () => {
           
           <button type="submit" className="vendor">Submit to Vendor</button>
           
-          {/* <link type="btn" >click</link> */}
-          
-          
+          {/* <link type="btn" >click</link> */}          
         </div>
       </form>
     </div>

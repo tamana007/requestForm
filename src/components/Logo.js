@@ -1,5 +1,3 @@
-// Logo.js
-import React from 'react';
 // import {marketingRequestForm} from '../Style'
 import '../Style/marketingRequestForm.css'; // Corrected import path
 import Image from 'next/image';

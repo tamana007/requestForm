@@ -3,10 +3,8 @@ import React, { useRef, useState } from 'react';
 import SignatureCanvas from 'react-signature-canvas';
 import { IoPencilOutline } from 'react-icons/io5';
 import styles from '../Style/DirectorReview.module.css'; // Create a CSS file for styling
-// import AccountsReview from './AccountsReview';
-// import React from 'react'
 
-function AccountsReview({}) {
+function AccountsReview() {
   const signatureCanvasRef = useRef(null);
   const [signature, setSignature] = useState('');
   const [reply, setReply] = useState('');
@@ -33,10 +31,10 @@ function AccountsReview({}) {
 
   return (
     <div className={styles.centered}>
-      <h1  className={styles.title}>Account's Review Page</h1>
+      <h1 className={styles.title}>Account's Review Page</h1>
       <div>
         <label>Accounts Signature:</label>
-        <br />
+        {/* <br /> */}
         <SignatureCanvas
           ref={signatureCanvasRef}
           canvasProps={{
@@ -49,6 +47,7 @@ function AccountsReview({}) {
             },
           }}
         />
+        <hr></hr>
         <br />
         <button onClick={handleSign}>
           Please Sign above
@@ -56,16 +55,23 @@ function AccountsReview({}) {
         </button>
       </div>
       <div>
-        <label className={styles.replySection}>Account Reply:</label>
+        <label className={styles.replySection}>Account Reply: here is </label>
         <br />
         <textarea value={reply} onChange={handleReplyChange}></textarea>
+        {/* Display the signature image near Account Reply */}
+        {signature && (
+          <div>
+            {/* <label>Director Signature:</label> */}
+            <br />
+            <img src={signature} alt="Director Signature" />
+          </div>
+        )}
       </div>
-      <button className={styles.accountsBtn} >Send To Vendor</button>
-      
-      {/* {account &&<AccountsReview/> } */}
+      <button className={styles.accountsBtn} onClick={handleSubmit}>
+        Send To Communication
+      </button>
     </div>
   );
-};
-// }
+}
 
-export default AccountsReview
+export default AccountsReview;

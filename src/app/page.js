@@ -5,8 +5,9 @@ import MarketingRequestForm from "@/components/marketingRequestForm";
 import TempComponent from "@/components/TempComponent";
 import DirectorReview from "./director-review";
 import AccountsReview from "@/components/AccountsReview";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Layout from "@/components/Layout";
+import Logo from "@/components/Logo";
 // import { Provider } from "react-redux";
 
 export default function Home() {
@@ -18,25 +19,26 @@ export default function Home() {
   }
   function accountFunc() {
     setAccount(!account);
-    setDirector(false)
+    setDirector(false);
     console.log("account", account);
   }
 
-  // console.log("hellooo")
-  return (
-    <Layout className={styles.main}>
-      {director ? (
-  <DirectorReview accountFunc={accountFunc} account={account} />
-) : account ? (
-  <AccountsReview />
-) : (
-  <TempComponent directorFunc={directorFunc} />
-)}
+  const [isClient, setIsClient] = useState(false);
 
-      {/* {director?<DirectorReview/>:<TempComponent directorFunc={directorFunc}/>
-      
-      } */}
-      {/* <DirectorReview/> */}
-    </Layout>
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  return (
+    <>
+      {isClient && (
+        <div className={styles.centeredContainer}>
+          <header>
+            <Logo />
+          </header>
+          <TempComponent directorFunc={directorFunc} />
+        </div>
+      )}
+    </>
   );
 }

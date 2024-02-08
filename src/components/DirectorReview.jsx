@@ -1,71 +1,62 @@
 'use client'
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
+import axios from 'axios';
 import SignatureCanvas from 'react-signature-canvas';
-import { IoPencilOutline } from 'react-icons/io5';
 import styles from '../Style/DirectorReview.module.css'; // Create a CSS file for styling
-import AccountsReview from './AccountsReview';
 
-
-
-const DirectorReview = ({accountFunc,account}) => {
+function DirectorReview() {
   const signatureCanvasRef = useRef(null);
-  const [signature, setSignature] = useState('');
-  const [reply, setReply] = useState('');
 
-  const handleSign = () => {
-    if (signatureCanvasRef.current.isEmpty()) {
-      alert('Please sign before submitting.');
-    } else {
-      setSignature(signatureCanvasRef.current.toDataURL());
+  const handleSendEmail = async () => {
+    const signature = signatureCanvasRef.current.toDataURL();
+
+      // Convert base64-encoded image data to a Blob object
+  const blob = await (await fetch(signature)).blob();
+
+  // Create a FormData object
+  const formData = new FormData();
+
+    // Append the Blob object to the FormData object
+    formData.append("signature", blob, "image.png");
+    console.log("signiture", formData)
+    
+    try {
+      const response = await fetch('/api/sendEmail', {
+        method: 'POST',
+        body: formData,
+      });
+      const ress = await response.json();
+      console.log("hello from Director review", ress);
+
+      if (!response.ok) {
+        throw new Error('Failed to send email');
+      }
+
+      alert('Email sent successfully!');
+    } catch (error) {
+      console.error('Error sending email:', error);
+      alert('An error occurred while sending the email.');
     }
-  };
-
-  const handleReplyChange = (event) => {
-    setReply(event.target.value);
-  };
-
-  const handleSubmit = () => {
-    console.log('Director Signature:', signature);
-    console.log('Director Reply:', reply);
-    // Implement logic to submit the Director's signature and reply
-    // Call the API endpoint created for Director's submission
-    // Redirect to the next step or show a success message
   };
 
   return (
     <div className={styles.centered}>
-      <h1  className={styles.title}>Director's Review Page</h1>
-      <div>
-        <label>Director Signature:</label>
-        <br />
-        <SignatureCanvas
-          ref={signatureCanvasRef}
-          canvasProps={{
-            width: 400,
-            height: 150,
-            className: 'signature-canvas',
-            // Use the pen icon as the cursor
-            style: {
-              cursor: 'pointer',
-            },
-          }}
-        />
-        <br />
-        <button onClick={handleSign}>
-          Please Sign above
-          <IoPencilOutline style={{ cursor: 'pointer', fontSize: '24px', marginRight: '5px' }} />
-        </button>
-      </div>
-      <div>
-        <label className={styles.replySection}>Director Reply:</label>
-        <br />
-        <textarea value={reply} onChange={handleReplyChange}></textarea>
-      </div>
-      <button className={styles.accountsBtn} onClick={accountFunc}>Send To Accounts</button>
+      {/* <h1 className={styles.title}>Please Sign here to approve</h1> */}
+      <h1 className={styles.title}>Director's Review Page</h1>
+<div>
+<label>Director's Signature:</label>
+<SignatureCanvas
+        ref={signatureCanvasRef}
+        canvasProps={{ width: 400, height: 150, className: 'signature-canvas' }}
+      />
+      <hr></hr>
+
+      <br />
+      <button onClick={handleSendEmail}>Approved!</button>
+</div>
       
-      {account &&<AccountsReview/> }
     </div>
   );
-};
+}
 
 export default DirectorReview;
