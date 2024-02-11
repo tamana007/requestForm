@@ -66,7 +66,6 @@ const userSchema = new mongoose.Schema({
   budgetApprovalByAccount: { type: String },
   invoiceTobeMade: String,
   // email: String,
-  directorSignature
 });
 
 

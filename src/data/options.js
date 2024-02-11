@@ -68,20 +68,12 @@ const questions = [
     key: 'sideNote'
   }
   ,
-  // {
-  //   description: 'Please attach information for Social Media, Flyer/Broucher/Other Things',
-  //   key: 'attachment'
-  // }
-  ,
+ 
   {
     description: 'Amount Approved?',
     key: 'approvedAmount'
   },
-  // {
-  //   description: 'Directors Signature',
-  //   key: 'approvedAmount'
-  // },
-
+ 
   {
     description: 'Budget approval by the Accounts Department?',
     key: 'budgetApprovalByAccount'

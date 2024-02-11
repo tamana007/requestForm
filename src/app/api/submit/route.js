@@ -54,7 +54,7 @@ Object.keys(formDataObject).forEach(item => {
 
 //DATABASE SETUP.....
 
-  const res = await new User(formDataObject)
+  const res = await new User(formDataObject).save()
   const id = res._id
 
   console.log("id", id)

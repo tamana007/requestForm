@@ -56,5 +56,7 @@ export async function POST (request, res) {
       res.status(500).json({ error: 'An error occurred while sending the email.' });
     }
 
-    return Response.json("send email....")
+    // return Response.json("send email....")
+
+    return res.status(200).send(buffer);
 }

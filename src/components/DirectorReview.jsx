@@ -28,7 +28,7 @@ function DirectorReview() {
       const ress = await response.json();
       console.log("hello from Director review", ress);
 
-      if (!response.ok) {
+      if (!ress.ok) {
         throw new Error('Failed to send email');
       }
 
@@ -52,7 +52,7 @@ function DirectorReview() {
       <hr></hr>
 
       <br />
-      <button onClick={handleSendEmail}>Approved!</button>
+      <button onClick={handleSendEmail}>Send to Account</button>
 </div>
       
     </div>

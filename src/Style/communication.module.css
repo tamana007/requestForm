@@ -1,0 +1,73 @@
+/* communication.module.css */
+
+.dashboard-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); /* Automatically adjust column width */
+  gap: 20px;
+  justify-items: center; /* Center items horizontally */
+}
+
+.dashboard-item {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: max-content; 
+   /* overflow: auto;  */
+   /* Hide overflow content  */
+}
+
+/* .flexible-Hieght{
+  height: max-content; 
+} */
+
+.logo-container {
+  margin-bottom: 10px; /* Add margin below the logo */
+  margin-top: 10px;
+}
+.items-logo{
+  width: 20px;
+  height: 20px;
+
+}
+
+.communication-details {
+  margin-bottom: 10px; /* Add margin below the communication details */
+}
+
+.dashboard-button {
+  margin-top: 10px; /* Add margin above the button */
+  background-color: #5a5c5e; /* Customize button color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.dashboard-button:hover {
+  background-color: #0056b3; /* Darken button color on hover */
+}
+.signature-container {
+  display: flex;
+  justify-content: space-between; /* Align items with space between them */
+}
+
+.signature-container-left,
+.signature-container-right {
+  /* Optional: Add styling for the left and right signature containers */
+}
+
+.signature-placeholder {
+  /* Style for the signature placeholder */
+  width: 100px; /* Adjust width as needed */
+  height: 50px; /* Adjust height as needed */
+  border: 1px solid #000; /* Border style */
+  /* Add additional styles as needed */
+}
+
+
+
