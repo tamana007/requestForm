@@ -1,0 +1,61 @@
+.thead{
+  display: block;
+  width: 100%;
+  background-color: brown;
+}
+.tbody{
+  display: block;
+}
+/* styles.css */
+
+.customTableHeader {
+  background-color: rgb(91, 131, 83); /* Primary color */
+  color: #ffffff; /* White text color */
+  font-weight: bold;
+ font-size: 76px !important; 
+
+  /* font-size: 300px;
+  /* color: white; */
+}
+
+.customTableHeader:hover {
+  background-color: orange; /* Secondary color on hover */
+}
+/* styles.css */
+
+.customButton1 {
+  color: #ffffff; /* White text color */
+  background-color: #3f51b5; /* Primary color */
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  margin-right: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.customButton2 {
+  color: #ffffff; /* White text color */
+  background-color: #3fb55d; /* Primary color */
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  margin-right: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.customButton3 {
+  color: #ffffff; /* White text color */
+  background-color: #e61212; /* Primary color */
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  margin-right: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.customButton1:hover,
+.customButton2:hover,
+.customButton3:hover {
+  background-color: #1976d2; /* Secondary color on hover */
+}
