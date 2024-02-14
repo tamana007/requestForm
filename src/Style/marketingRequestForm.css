@@ -105,7 +105,11 @@
 }
 
 .print-form-container {
-  margin-top: 50px; /* Adjust as needed */
+  margin-top: 0px; /* Adjust as needed */
   text-align: center;
+}
+.checkboxes{
+  /* align-items:center ; */
+  justify-content: left;
 }
 
