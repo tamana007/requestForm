@@ -59,12 +59,20 @@ const userSchema = new mongoose.Schema({
   size: {
     type: String,
   },
+
   sideNote: String,
   attachment: String,
   approvedAmount: String,
   directorSignature: Buffer,
   budgetApprovalByAccount: { type: String },
   invoiceTobeMade: String,
+  attachement:{
+    type:String
+  },
+  signature:{
+    type:String,
+    
+  }
   // email: String,
 });
 

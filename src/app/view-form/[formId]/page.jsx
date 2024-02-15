@@ -7,7 +7,7 @@ import Logo from "@/components/Logo";
 import Print from "@/components/print";
 function Page({ params }) {
   const id = params.formId;
-  const [viewUser, setViewUser] = useState('');
+  const [viewUser, setViewUser] = useState({});
   const [check,isChecked]=useState('')
 
   useEffect(() => {
@@ -22,12 +22,20 @@ function Page({ params }) {
         const data = await res.json();
        
         // setViewUser(prevViewUser => ({ ...prevViewUser,...data.user}));
+        // setViewUser(data.user);
+
+        // setViewUser({viewUser, ...data.user})
+        setViewUser(prev => ({ ...prev, ...data.user }));
+
         console.log("check data.user", data.user);
+        console.log('view user',viewUser);
         const final=data.user;
 
 
-    isChecked(final);
-    console.log('view user',check);
+        // isChecked(final);
+        // console.log('view user',check);
+
+
 
 
         console.log('final',final.socialMediaAd);
@@ -53,66 +61,66 @@ function Page({ params }) {
           <h1>View Form</h1>
           <div className="checkboxes">
             <label htmlFor="data1">
-              <input type="checkbox" id="data1" name="data1" checked={viewUser.flyer} />
+              <input readOnly disabled type="checkbox" id="data1" name="data1" checked={!!viewUser.flyer} />
               Social Media Ad
             </label>
             <div>
               <label htmlFor="data2">
-                <input type="checkbox" id="data2" name="data2" />
+                <input readOnly disabled type="checkbox" id="data2" name="data2" />
                 Bussiness Card
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input type="checkbox" id="data2" name="data2"  />
+                <input readOnly disabled type="checkbox" id="data2" name="data2"  />
                 Flyer 
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input type="checkbox" id="data2" name="data2" />
+                <input  readOnly disabled type="checkbox" id="data2" name="data2" checked={!!viewUser.brouchure} />
                 Brochure
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input type="checkbox" id="data2" name="data2" />
+                <input readOnly disabled type="checkbox" id="data2" name="data2" />
                 Pullup Banner
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input type="checkbox" id="data2" name="data2" />
+                <input readOnly disabled type="checkbox" id="data2" name="data2" />
                 Table top Banner
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input type="checkbox" id="data2" name="data2" />
+                <input readOnly disabled type="checkbox" id="data2" name="data2" />
                 Special Merchandise/Swag item
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input type="checkbox" id="data2" name="data2" />
+                <input readOnly disabled type="checkbox" id="data2" name="data2" />
                 Placard
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input type="checkbox" id="data2" name="data2" />
+                <input readOnly disabled type="checkbox" id="data2" name="data2" />
                 Marketing
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input type="checkbox" id="data2" name="data2" />
+                <input readOnly disabled type="checkbox" id="data2" name="data2" />
                 Any other (Please Specify)
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input type="checkbox" id="data2" name="data2" />
+                <input readOnly disabled type="checkbox" id="data2" name="data2" />
                 What is your program name?
               </label>
             </div>
@@ -123,7 +131,8 @@ function Page({ params }) {
             <p>
               Question 1: What is your program name?
               <br />
-              Answer: {viewUser.programName} <p type="text" name="answer1"  />
+              Answer: {viewUser.programName} 
+              <p type="text" name="answer1"  />
             </p>
             <p>
               Question 2: Your Name:
@@ -207,66 +216,66 @@ function Page({ params }) {
           <h1>View Form</h1>
           <div className="checkboxes">
             <label htmlFor="data1">
-              <input type="checkbox" id="data1" name="data1" checked={viewUser.socialMediaAd} />
+              <input disabled readOnly type="checkbox" id="data1" name="data1" checked={!! viewUser.socialMediaAd} />
               Social Media Ad
             </label>
             <div>
               <label htmlFor="data2">
-                <input type="checkbox" id="data2" name="data2"  />
+                <input disabled readOnly type="checkbox" id="data2" name="data2"  />
                 Bussiness Card
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input type="checkbox" id="data2" name="data2" />
+                <input disabled readOnly type="checkbox" id="data2" name="data2" />
                 Flyer
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input type="checkbox" id="data2" name="data2" />
+                <input disabled readOnly type="checkbox" id="data2" name="data2" />
                 Brochure
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input type="checkbox" id="data2" name="data2" />
+                <input disabled readOnly type="checkbox" id="data2" name="data2" />
                 Pullup Banner
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input type="checkbox" id="data2" name="data2" />
+                <input disabled readOnly type="checkbox" id="data2" name="data2" />
                 Table top Banner
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input type="checkbox" id="data2" name="data2" />
+                <input disabled readOnly type="checkbox" id="data2" name="data2" checked={!! viewUser.specialMerchandise} />
                 Special Merchandise/Swag item
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input type="checkbox" id="data2" name="data2" />
+                <input disabled readOnly type="checkbox" id="data2" name="data2" />
                 Placard
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input type="checkbox" id="data2" name="data2" />
+                <input disabled readOnly type="checkbox" id="data2" name="data2" />
                 Marketing
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input type="checkbox" id="data2" name="data2" />
+                <input disabled readOnly type="checkbox" id="data2" name="data2" />
                 Any other (Please Specify)
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input type="checkbox" id="data2" name="data2" />
+                <input disabled readOnly type="checkbox" id="data2" name="data2" />
                 What is your program name?
               </label>
             </div>

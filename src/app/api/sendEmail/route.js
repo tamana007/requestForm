@@ -1,11 +1,23 @@
 // pages/api/sendEmail.js
 const nodemailer = require('nodemailer');
 const mimeTypes = require('mime-types');
+// import connectToDatabase from '@/db/db';
+import {connectToDatabase} from "@/db/db"
+
 
 export async function POST (request, res) {
+  await connectToDatabase()
+
 
     const formData = await request.formData()
     const signature = formData.get('signature');
+
+    //Save the Singnature in to the Database.....
+  // await connectToDatabase()
+
+
+    // const {db}=await connectToDatabase();
+    await db.collection('singnatures').insertone({Name:"Samadof"});
 
     let arrayBuffer = await signature.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
