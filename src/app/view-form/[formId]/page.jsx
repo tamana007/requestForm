@@ -7,8 +7,8 @@ import Logo from "@/components/Logo";
 import Print from "@/components/print";
 function Page({ params }) {
   const id = params.formId;
-  const [viewUser, setViewUser] = useState([]);
-  const [check,isChecked]=useState(true)
+  const [viewUser, setViewUser] = useState('');
+  const [check,isChecked]=useState('')
 
   useEffect(() => {
     const fetchFormData = async () => {
@@ -20,15 +20,27 @@ function Page({ params }) {
           throw new Error("Failed to fetch data");
         }
         const data = await res.json();
-        setViewUser(data.user);
-        console.log("check data", viewUser);
+       
+        // setViewUser(prevViewUser => ({ ...prevViewUser,...data.user}));
+        console.log("check data.user", data.user);
+        const final=data.user;
+
+
+    isChecked(final);
+    console.log('view user',check);
+
+
+        console.log('final',final.socialMediaAd);
       } catch (error) {
         console.error("Error fetching form data:", error);
       }
     };
 
     fetchFormData();
+
   }, []);
+
+ 
 
   //This function used for passing into the HTML Converter
   const renderPrintContainer = () => {
@@ -41,7 +53,7 @@ function Page({ params }) {
           <h1>View Form</h1>
           <div className="checkboxes">
             <label htmlFor="data1">
-              <input type="checkbox" id="data1" name="data1" checked={true} />
+              <input type="checkbox" id="data1" name="data1" checked={viewUser.flyer} />
               Social Media Ad
             </label>
             <div>
@@ -111,7 +123,7 @@ function Page({ params }) {
             <p>
               Question 1: What is your program name?
               <br />
-              Answer: {viewUser.programName} <p type="text" name="answer1" />
+              Answer: {viewUser.programName} <p type="text" name="answer1"  />
             </p>
             <p>
               Question 2: Your Name:
@@ -195,7 +207,7 @@ function Page({ params }) {
           <h1>View Form</h1>
           <div className="checkboxes">
             <label htmlFor="data1">
-              <input type="checkbox" id="data1" name="data1" />
+              <input type="checkbox" id="data1" name="data1" checked={viewUser.socialMediaAd} />
               Social Media Ad
             </label>
             <div>

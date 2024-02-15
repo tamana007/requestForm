@@ -19,6 +19,7 @@ function DirectorReview() {
     // Append the Blob object to the FormData object
     formData.append("signature", blob, "image.png");
     console.log("signiture", formData)
+    console.log(typeof formData);
     
     try {
       const response = await fetch('/api/sendEmail', {
