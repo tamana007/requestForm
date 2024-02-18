@@ -2,11 +2,11 @@
 const nodemailer = require('nodemailer');
 const mimeTypes = require('mime-types');
 // import connectToDatabase from '@/db/db';
-import {connectToDatabase} from "@/db/db"
+// import {connectToDatabase} from "@/db/db"
 
 
 export async function POST (request, res) {
-  await connectToDatabase()
+  // await connectToDatabase()
 
 
     const formData = await request.formData()
@@ -17,7 +17,7 @@ export async function POST (request, res) {
 
 
     // const {db}=await connectToDatabase();
-    await db.collection('singnatures').insertone({Name:"Samadof"});
+    // await db.collection('singnatures').insertone({Name:"Samadof"});
 
     let arrayBuffer = await signature.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);

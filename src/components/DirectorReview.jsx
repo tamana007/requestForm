@@ -1,11 +1,74 @@
 'use client'
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import axios from 'axios';
 import SignatureCanvas from 'react-signature-canvas';
 import styles from '../Style/DirectorReview.module.css'; // Create a CSS file for styling
+import { useSearchParams } from 'next/navigation'
 
 function DirectorReview() {
   const signatureCanvasRef = useRef(null);
+  const searchParams = useSearchParams()
+  const search = searchParams.get('directorEmail')
+  const id = searchParams.get('id')
+  console.log("params", search, id)
+
+useEffect(()=>{
+  // console.log('params$$$$$$$$$$$',id);
+},[])
+  // const handleSaveSignature=async()=>{
+  //   try{
+  //     const res= await fetch('/api/saveSignature',{
+  //       method:'POST',
+  //       body:"hello"
+  //     })
+  //     const ress=await res.json({message:'sent to end point'})
+      
+  //   console.log('signature sent to Database',ress);
+
+  //   }
+  //   catch(eror){
+  //     res.json({message:'problem happend'},eror)
+
+  //   }
+
+  // }
+
+  const handleSaveSignature = async () => {
+    const signature = signatureCanvasRef.current.toDataURL();
+
+      // Convert base64-encoded image data to a Blob object
+  const blob = await (await fetch(signature)).blob();
+
+  // Create a FormData object
+  const formData = new FormData();
+
+    // Append the Blob object to the FormData object
+    formData.append("signature", blob, "image.png");
+    console.log("signiture", formData)
+    console.log(typeof formData);
+    
+    try {
+      const response = await fetch(`/api/saveSignature?id=${id}`, {
+        method: 'POST',
+        body: formData,
+      });
+      const ress = await response.json();
+      console.log("hello from save", ress);
+
+      if (!ress.ok) {
+        throw new Error('Failed to save');
+      }
+
+      alert('Email sent successfully!');
+    } catch (error) {
+      console.error('Error saving signature:', error);
+      alert('An error occurred while saving the sig.');
+    }
+
+   
+  };
+
+
 
   const handleSendEmail = async () => {
     const signature = signatureCanvasRef.current.toDataURL();
@@ -19,7 +82,7 @@ function DirectorReview() {
     // Append the Blob object to the FormData object
     formData.append("signature", blob, "image.png");
     console.log("signiture", formData)
-    console.log(typeof formData);
+    // console.log(typeof formData);
     
     try {
       const response = await fetch('/api/sendEmail', {
@@ -38,6 +101,8 @@ function DirectorReview() {
       console.error('Error sending email:', error);
       alert('An error occurred while sending the email.');
     }
+
+   
   };
 
   return (
@@ -53,6 +118,8 @@ function DirectorReview() {
       <hr></hr>
 
       <br />
+      <button onClick={handleSaveSignature} >Click to send</button>
+
       <button onClick={handleSendEmail}>Send to Account</button>
 </div>
       
