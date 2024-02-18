@@ -11,7 +11,7 @@ export async function GET (request){
 
   try {
     const user =await User.findOne({_id:id});
-    console.log('users here',user);
+    // console.log('users here',user);
   return Response.json({user})
     
   } catch (error) {
@@ -21,22 +21,5 @@ export async function GET (request){
 }
 
 
-// export default async function handler(req, res) {
-//   await connectToDatabase();
-
-//   try {
-//     const { formId } = req.query;
-//     const user = await User.findOne({ _id: formId });
-
-//     if (!user) {
-//       return res.status(404).json({ success: false, message: 'User not found' });
-//     }
-
-//     return res.status(200).json({ success: true, user });
-//   } catch (error) {
-//     console.error('Error fetching user data:', error);
-//     return res.status(500).json({ success: false, error: error.message });
-//   }
-// }
 
 

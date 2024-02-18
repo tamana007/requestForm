@@ -7,37 +7,21 @@ import { useSearchParams } from 'next/navigation'
 
 function DirectorReview() {
   const signatureCanvasRef = useRef(null);
+  //using search param I can send static data...to endpoint
   const searchParams = useSearchParams()
   const search = searchParams.get('directorEmail')
   const id = searchParams.get('id')
   console.log("params", search, id)
 
-useEffect(()=>{
-  // console.log('params$$$$$$$$$$$',id);
-},[])
-  // const handleSaveSignature=async()=>{
-  //   try{
-  //     const res= await fetch('/api/saveSignature',{
-  //       method:'POST',
-  //       body:"hello"
-  //     })
-  //     const ress=await res.json({message:'sent to end point'})
-      
-  //   console.log('signature sent to Database',ress);
 
-  //   }
-  //   catch(eror){
-  //     res.json({message:'problem happend'},eror)
-
-  //   }
-
-  // }
 
   const handleSaveSignature = async () => {
     const signature = signatureCanvasRef.current.toDataURL();
+    console.log("signature image", signature)
+    // Convert base64-encoded image data to a Blob object
+    const blob = await (await fetch(signature)).blob();
+    console.log("blob", blob)
 
-      // Convert base64-encoded image data to a Blob object
-  const blob = await (await fetch(signature)).blob();
 
   // Create a FormData object
   const formData = new FormData();

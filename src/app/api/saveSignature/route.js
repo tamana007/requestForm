@@ -10,19 +10,19 @@ export async function POST(req, res) {
     // Get the signature data from the request
     const formData = await req.formData();
     const signature = formData.get("signature");
+    
     let arrayBuffer = await signature.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
+
+
+    // Convert the Buffer to a base64 encoded string
+    const base64String = buffer.toString('base64');
+
+    // console.log('base64String', base64String); // Output the base64 encoded string
+
+    //Tring to access id from the URL link
     const url = new URL(req.url);
-    console.log(
-      "req.urlllllllllllll######################################################clear",
-      url
-    );
     const id = url.searchParams.get("id");
-
-    // Extract the ID from the URL params
-    // const { id } = req.query;
-
-    console.log("check if id found ***************", url);
 
     if (!id) {
       return res.status(400).json({ error: "ID parameter is missing" });
@@ -31,7 +31,7 @@ export async function POST(req, res) {
     // Find the document by ID and update the signature field
     const updatedUser = await User.findByIdAndUpdate(
       id,
-      { $set: { signature: buffer } },
+      { $set: { signature: base64String } },
       { new: true }
     );
 
@@ -47,7 +47,7 @@ export async function POST(req, res) {
     });
   } catch (error) {
     console.error("Error updating signature:", req.query);
-    res
+   return res
       .status(500)
       .json({ error: "An error occurred while updating the signature." });
   }

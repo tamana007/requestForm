@@ -8,7 +8,8 @@ import Print from "@/components/print";
 function Page({ params }) {
   const id = params.formId;
   const [viewUser, setViewUser] = useState({});
-  const [check,isChecked]=useState('')
+  // const [check, isChecked] = useState("");
+  const [signatureImageUrl, setSignatureImageUrl] = useState(null);
 
   useEffect(() => {
     const fetchFormData = async () => {
@@ -20,35 +21,35 @@ function Page({ params }) {
           throw new Error("Failed to fetch data");
         }
         const data = await res.json();
-       
-        // setViewUser(prevViewUser => ({ ...prevViewUser,...data.user}));
-        // setViewUser(data.user);
+        setViewUser((prev) => ({ ...prev, ...data.user }));
+        //...........................................................
 
-        // setViewUser({viewUser, ...data.user})
-        setViewUser(prev => ({ ...prev, ...data.user }));
+        // Decode the signature image and set the URL
+        if (data.user.signature) {
+          // console.log(data.user.signature)
+          const base64String = data.user.signature.toString("base64");
+          console.log(base64String);
+
+          const imgString = `data:image/png;base64,${base64String}`;
+
+          const decodedSignature = atob(base64String);
+          const signatureBlob = new Blob([decodedSignature], {
+            type: "image/png",
+          });
+          const imageUrl = URL.createObjectURL(signatureBlob);
+          setSignatureImageUrl(imgString);
+        }
 
         console.log("check data.user", data.user);
-        console.log('view user',viewUser);
-        const final=data.user;
-
-
-        // isChecked(final);
-        // console.log('view user',check);
-
-
-
-
-        console.log('final',final.socialMediaAd);
+        console.log("view user", viewUser);
+        const final = data.user;
+        console.log("final", final.socialMediaAd);
       } catch (error) {
         console.error("Error fetching form data:", error);
       }
     };
-
     fetchFormData();
-
   }, []);
-
- 
 
   //This function used for passing into the HTML Converter
   const renderPrintContainer = () => {
@@ -61,66 +62,134 @@ function Page({ params }) {
           <h1>View Form</h1>
           <div className="checkboxes">
             <label htmlFor="data1">
-              <input readOnly disabled type="checkbox" id="data1" name="data1" checked={!!viewUser.flyer} />
+              <input
+                readOnly
+                disabled
+                type="checkbox"
+                id="data1"
+                name="data1"
+                checked={!!viewUser.flyer}
+              />
               Social Media Ad
             </label>
             <div>
               <label htmlFor="data2">
-                <input readOnly disabled type="checkbox" id="data2" name="data2" />
+                <input
+                  readOnly
+                  disabled
+                  type="checkbox"
+                  id="data2"
+                  name="data2"
+                />
                 Bussiness Card
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input readOnly disabled type="checkbox" id="data2" name="data2"  />
-                Flyer 
+                <input
+                  readOnly
+                  disabled
+                  type="checkbox"
+                  id="data2"
+                  name="data2"
+                />
+                Flyer
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input  readOnly disabled type="checkbox" id="data2" name="data2" checked={!!viewUser.brouchure} />
+                <input
+                  readOnly
+                  disabled
+                  type="checkbox"
+                  id="data2"
+                  name="data2"
+                  checked={!!viewUser.brouchure}
+                />
                 Brochure
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input readOnly disabled type="checkbox" id="data2" name="data2" />
+                <input
+                  readOnly
+                  disabled
+                  type="checkbox"
+                  id="data2"
+                  name="data2"
+                />
                 Pullup Banner
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input readOnly disabled type="checkbox" id="data2" name="data2" />
+                <input
+                  readOnly
+                  disabled
+                  type="checkbox"
+                  id="data2"
+                  name="data2"
+                />
                 Table top Banner
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input readOnly disabled type="checkbox" id="data2" name="data2" />
+                <input
+                  readOnly
+                  disabled
+                  type="checkbox"
+                  id="data2"
+                  name="data2"
+                />
                 Special Merchandise/Swag item
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input readOnly disabled type="checkbox" id="data2" name="data2" />
+                <input
+                  readOnly
+                  disabled
+                  type="checkbox"
+                  id="data2"
+                  name="data2"
+                />
                 Placard
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input readOnly disabled type="checkbox" id="data2" name="data2" />
+                <input
+                  readOnly
+                  disabled
+                  type="checkbox"
+                  id="data2"
+                  name="data2"
+                />
                 Marketing
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input readOnly disabled type="checkbox" id="data2" name="data2" />
+                <input
+                  readOnly
+                  disabled
+                  type="checkbox"
+                  id="data2"
+                  name="data2"
+                />
                 Any other (Please Specify)
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input readOnly disabled type="checkbox" id="data2" name="data2" />
+                <input
+                  readOnly
+                  disabled
+                  type="checkbox"
+                  id="data2"
+                  name="data2"
+                />
                 What is your program name?
               </label>
             </div>
@@ -131,47 +200,59 @@ function Page({ params }) {
             <p>
               Question 1: What is your program name?
               <br />
-              Answer: {viewUser.programName} 
-              <p type="text" name="answer1"  />
+              Answer: {viewUser.programName}
+              <p type="text" name="answer1" />
             </p>
             <p>
               Question 2: Your Name:
               <br />
-              Answer: {viewUser.name}<p type="text" name="answer2" />
+              Answer: {viewUser.name}
+              <p type="text" name="answer2" />
             </p>
             {/* Add more questions and answers as needed */}
             <p>
               Question 2: Director Email Address:
               <br />
-              Answer: {viewUser.directorEmail}<p type="text" name="answer2" />
+              Answer: {viewUser.directorEmail}
+              <p type="text" name="answer2" />
             </p>
             <p>
               Question 2: Please Specify the Size and Quantity (If relevant)
               <br />
-              Answer: {viewUser.size}<p type="text" name="answer2" />
+              Answer: {viewUser.size}
+              <p type="text" name="answer2" />
             </p>
             <p>
-              Question 2: Please Write any side-note for Social Media Post,Flyer/Brochure/Swag Item (If relevant)
+              Question 2: Please Write any side-note for Social Media
+              Post,Flyer/Brochure/Swag Item (If relevant)
               <br />
-              Answer: {viewUser.sideNote}<p type="text" name="answer2" />
+              Answer: {viewUser.sideNote}
+              <p type="text" name="answer2" />
             </p>
             <p>
               Question 2: Amount Approved?
               <br />
-              Answer: {viewUser.approvedAmount}<p type="text" name="answer2" />
+              Answer: {viewUser.approvedAmount}
+              <p type="text" name="answer2" />
             </p>
             <p>
               Question 2: Budget approval by the Accounts Department?
               <br />
-              Answer: {viewUser.budgetApprovalByAccount}<p type="text" name="answer2" />
+              Answer: {viewUser.budgetApprovalByAccount}
+              <p type="text" name="answer2" />
             </p>
             <p>
               Question 2: Invoince to be made under which Name/program ?
               <br />
-              Answer: {viewUser.invoiceTobeMade}<p type="text" name="answer2" />
+              Answer: {viewUser.invoiceTobeMade}
+              <p type="text" name="answer2" />
             </p>
+            <div>
+              <span>Director Signature:</span>
+              <img src={signatureImageUrl} alt="Director's Signature" />
+              <hr/>
+            </div>
           </div>
-         
         </div>
       </div>
 
@@ -205,77 +286,140 @@ function Page({ params }) {
 
   return (
     <div>
-      {/* <div className="print-container">
-        <Logo />
-        <p>Helloooooo {viewUser.programName}</p>
-        <h1>This is my View Form page and form Id is: {params.formId}</h1>
-      </div> */}
-    <div className="print-container">
+      <div className="print-container">
         <Logo />
         <div className="print-form-container">
           <h1>View Form</h1>
           <div className="checkboxes">
             <label htmlFor="data1">
-              <input disabled readOnly type="checkbox" id="data1" name="data1" checked={!! viewUser.socialMediaAd} />
+              <input
+                disabled
+                readOnly
+                type="checkbox"
+                id="data1"
+                name="data1"
+                checked={!!viewUser.socialMediaAd}
+              />
               Social Media Ad
             </label>
             <div>
               <label htmlFor="data2">
-                <input disabled readOnly type="checkbox" id="data2" name="data2"  />
+                <input
+                  disabled
+                  readOnly
+                  type="checkbox"
+                  id="data2"
+                  name="data2"
+                />
                 Bussiness Card
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input disabled readOnly type="checkbox" id="data2" name="data2" />
+                <input
+                  disabled
+                  readOnly
+                  type="checkbox"
+                  id="data2"
+                  name="data2"
+                />
                 Flyer
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input disabled readOnly type="checkbox" id="data2" name="data2" />
+                <input
+                  disabled
+                  readOnly
+                  type="checkbox"
+                  id="data2"
+                  name="data2"
+                />
                 Brochure
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input disabled readOnly type="checkbox" id="data2" name="data2" />
+                <input
+                  disabled
+                  readOnly
+                  type="checkbox"
+                  id="data2"
+                  name="data2"
+                />
                 Pullup Banner
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input disabled readOnly type="checkbox" id="data2" name="data2" />
+                <input
+                  disabled
+                  readOnly
+                  type="checkbox"
+                  id="data2"
+                  name="data2"
+                />
                 Table top Banner
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input disabled readOnly type="checkbox" id="data2" name="data2" checked={!! viewUser.specialMerchandise} />
+                <input
+                  disabled
+                  readOnly
+                  type="checkbox"
+                  id="data2"
+                  name="data2"
+                  checked={!!viewUser.specialMerchandise}
+                />
                 Special Merchandise/Swag item
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input disabled readOnly type="checkbox" id="data2" name="data2" />
+                <input
+                  disabled
+                  readOnly
+                  type="checkbox"
+                  id="data2"
+                  name="data2"
+                />
                 Placard
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input disabled readOnly type="checkbox" id="data2" name="data2" />
+                <input
+                  disabled
+                  readOnly
+                  type="checkbox"
+                  id="data2"
+                  name="data2"
+                />
                 Marketing
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input disabled readOnly type="checkbox" id="data2" name="data2" />
+                <input
+                  disabled
+                  readOnly
+                  type="checkbox"
+                  id="data2"
+                  name="data2"
+                />
                 Any other (Please Specify)
               </label>
             </div>
             <div>
               <label htmlFor="data2">
-                <input disabled readOnly type="checkbox" id="data2" name="data2" />
+                <input
+                  disabled
+                  readOnly
+                  type="checkbox"
+                  id="data2"
+                  name="data2"
+                />
                 What is your program name?
               </label>
             </div>
@@ -291,43 +435,57 @@ function Page({ params }) {
             <p>
               Question 2: Your Name:
               <br />
-              Answer: {viewUser.name}<p type="text" name="answer2" />
+              Answer: {viewUser.name}
+              <p type="text" name="answer2" />
             </p>
             {/* Add more questions and answers as needed */}
             <p>
               Question 2: Director Email Address:
               <br />
-              Answer: {viewUser.directorEmail}<p type="text" name="answer2" />
+              Answer: {viewUser.directorEmail}
+              <p type="text" name="answer2" />
             </p>
             <p>
               Question 2: Please Specify the Size and Quantity (If relevant)
               <br />
-              Answer: {viewUser.size}<p type="text" name="answer2" />
+              Answer: {viewUser.size}
+              <p type="text" name="answer2" />
             </p>
             <p>
-              Question 2: Please Write any side-note for Social Media Post,Flyer/Brochure/Swag Item (If relevant)
+              Question 2: Please Write any side-note for Social Media
+              Post,Flyer/Brochure/Swag Item (If relevant)
               <br />
-              Answer: {viewUser.sideNote}<p type="text" name="answer2" />
+              Answer: {viewUser.sideNote}
+              <p type="text" name="answer2" />
             </p>
             <p>
               Question 2: Amount Approved?
               <br />
-              Answer: {viewUser.approvedAmount}<p type="text" name="answer2" />
+              Answer: {viewUser.approvedAmount}
+              <p type="text" name="answer2" />
             </p>
             <p>
               Question 2: Budget approval by the Accounts Department?
               <br />
-              Answer: {viewUser.budgetApprovalByAccount}<p type="text" name="answer2" />
+              Answer: {viewUser.budgetApprovalByAccount}
+              <p type="text" name="answer2" />
             </p>
             <p>
               Question 2: Invoince to be made under which Name/program ?
               <br />
-              Answer: {viewUser.invoiceTobeMade}<p type="text" name="answer2" />
+              Answer: {viewUser.invoiceTobeMade}
+              <p type="text" name="answer2" />
             </p>
+
+            {/* <hr /> */}
+            <div>
+              <span>Director Signature:</span>{" "}
+              <img src={signatureImageUrl} alt="Director's Signature" />
+            </div>
           </div>
           {/* <button type="submit">Submit</button> */}
-      <button onClick={() => exportAsPDF()}>Export as PDF</button>
-
+          <hr/>
+          <button onClick={() => exportAsPDF()}>Export as PDF</button>
         </div>
       </div>
     </div>
