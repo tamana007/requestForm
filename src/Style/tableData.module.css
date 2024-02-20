@@ -64,3 +64,15 @@
 .customButton3:hover {
   background-color: #1976d2; /* Secondary color on hover */
 }
+.signatures{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* background-color: green; */
+  /* margin-bottom: 30px; */
+}
+.print{
+  height: 100%;
+  margin-bottom: 50px;
+  background-color: rosybrown;
+}

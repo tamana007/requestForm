@@ -5,11 +5,17 @@ import ReactDOMServer from "react-dom/server";
 import html2pdf from "html2pdf.js";
 import Logo from "@/components/Logo";
 import Print from "@/components/print";
+// import styles from '@/Style/tableData.module.css';
+// import styles from '@/Style/tableData.module.css';
+ // Create a CSS file for styling
+ import styles from '../../../Style/tableData.module.css'
+
 function Page({ params }) {
   const id = params.formId;
   const [viewUser, setViewUser] = useState({});
   // const [check, isChecked] = useState("");
   const [signatureImageUrl, setSignatureImageUrl] = useState(null);
+  const [accountImageUrl,setAccountSignature]=useState(null);
 
   useEffect(() => {
     const fetchFormData = async () => {
@@ -28,16 +34,29 @@ function Page({ params }) {
         if (data.user.signature) {
           // console.log(data.user.signature)
           const base64String = data.user.signature.toString("base64");
-          console.log(base64String);
+          const base64Account=data.user.accountSignature.toString("base64");
+          console.log('ACCOUNT SIGNAUTERE',base64Account);
 
           const imgString = `data:image/png;base64,${base64String}`;
+          const accountSignatureImg= `data:image/png;base64,${base64Account}`
 
           const decodedSignature = atob(base64String);
+          //
+          const accountdecodeSignature= atob(base64Account);
+
           const signatureBlob = new Blob([decodedSignature], {
+            type: "image/png",
+          });
+          //
+          const accountsignatureBlob = new Blob([accountdecodeSignature], {
             type: "image/png",
           });
           const imageUrl = URL.createObjectURL(signatureBlob);
           setSignatureImageUrl(imgString);
+          console.log('acountttttttttttttttttttttttttttttttttttttttttttt',accountSignatureImg);
+          //
+          const accountImgurl=URL.createObjectURL(accountsignatureBlob);
+          setAccountSignature(accountSignatureImg);
         }
 
         console.log("check data.user", data.user);
@@ -56,7 +75,7 @@ function Page({ params }) {
     if (!id) return null;
 
     return (
-      <div className="print-container">
+      <div className={styles.print}>
         <Logo />
         <div className="print-form-container">
           <h1>View Form</h1>
@@ -247,10 +266,15 @@ function Page({ params }) {
               Answer: {viewUser.invoiceTobeMade}
               <p type="text" name="answer2" />
             </p>
-            <div>
-              <span>Director Signature:</span>
+            <div className={styles.signatures}>
+              <p>Director Signature:</p>
               <img src={signatureImageUrl} alt="Director's Signature" />
-              <hr/>
+              {/* <hr/> */}
+            {/* </div> */}
+
+            {/* <div> */}
+              <p>Account Signature:</p>{" "}
+              <img src={accountImageUrl} alt="Director's Signature" />
             </div>
           </div>
         </div>
@@ -273,7 +297,7 @@ function Page({ params }) {
         margin: 10,
         filename: "exported_document.pdf",
         image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { scale: 2 },
+        html2canvas: { scale: 4 },
         jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
       };
       html2pdf()
@@ -286,7 +310,7 @@ function Page({ params }) {
 
   return (
     <div>
-      <div className="print-container">
+      <div className={styles.print}>
         <Logo />
         <div className="print-form-container">
           <h1>View Form</h1>
@@ -478,9 +502,13 @@ function Page({ params }) {
             </p>
 
             {/* <hr /> */}
-            <div>
+            <div className={styles.signatures}>
               <span>Director Signature:</span>{" "}
               <img src={signatureImageUrl} alt="Director's Signature" />
+            {/* </div> */}
+            {/* <div> */}
+              <span>Account Signature:</span>{" "}
+              <img src={accountImageUrl} alt="Director's Signature" />
             </div>
           </div>
           {/* <button type="submit">Submit</button> */}

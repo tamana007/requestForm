@@ -17,7 +17,7 @@ function DirectorReview() {
 
   const handleSaveSignature = async () => {
     const signature = signatureCanvasRef.current.toDataURL();
-    console.log("signature image", signature)
+    // console.log("signature image", signature)
     // Convert base64-encoded image data to a Blob object
     const blob = await (await fetch(signature)).blob();
     console.log("blob", blob)

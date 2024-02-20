@@ -71,8 +71,10 @@ const userSchema = new mongoose.Schema({
   },
   signature:{
     type:String,
-    
-  }
+  },
+  accountSignature:{
+    type:String,
+  },
   // email: String,
 });
 
