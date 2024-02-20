@@ -13,7 +13,7 @@ function DirectorReview() {
   const id = searchParams.get('id')
   console.log("params", search, id)
 
-
+//SaveSignature API
 
   const handleSaveSignature = async () => {
     const signature = signatureCanvasRef.current.toDataURL();
@@ -53,7 +53,7 @@ function DirectorReview() {
   };
 
 
-
+//SEND SIGNATURE TO EMAIL API.......................
   const handleSendEmail = async () => {
     const signature = signatureCanvasRef.current.toDataURL();
 
@@ -69,7 +69,7 @@ function DirectorReview() {
     // console.log(typeof formData);
     
     try {
-      const response = await fetch('/api/sendEmail', {
+      const response = await fetch(`/api/sendEmail?id=${id}`, {
         method: 'POST',
         body: formData,
       });
@@ -93,6 +93,7 @@ function DirectorReview() {
     <div className={styles.centered}>
       {/* <h1 className={styles.title}>Please Sign here to approve</h1> */}
       <h1 className={styles.title}>Director's Review Page</h1>
+      <p>this form id is {id}</p>
 <div>
 <label>Director's Signature:</label>
 <SignatureCanvas
@@ -102,7 +103,7 @@ function DirectorReview() {
       <hr></hr>
 
       <br />
-      <button onClick={handleSaveSignature} >Click to send</button>
+      <button onClick={handleSaveSignature} >Click to save signature</button>
 
       <button onClick={handleSendEmail}>Send to Account</button>
 </div>

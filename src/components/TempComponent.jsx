@@ -1,23 +1,13 @@
 "use client";
 
-//Import use router for routing...........
-// import { useRouter } from "next/router";
-
 import React, { useState } from "react";
 import { options, questions } from "@/data/options"; // Import questions array
-// import Logo from "./Logo";
 import { NodeAction } from "@/data/action";
 import Link from "next/link";
 import DirectorReview from "./DirectorReview";
 import connectToDatabase from "@/db/db";
 
-// function TempComponent({ directorFunc }) {
-//   const [printOptions, setPrintOptions] = useState(
-//     options.reduce((acc, option) => {
-//       acc[option] = false;
-//       return acc;
-//     }, {})
-//   );
+
 
 function TempComponent({ directorFunc }) {
   const [printOptions, setPrintOptions] = useState(
@@ -44,21 +34,6 @@ function TempComponent({ directorFunc }) {
       ...printOptions,
       [option.key]: !printOptions[option.key],
     });
-
-//   const handleCheckboxChange = (optionKey) => {
-//   setPrintOptions((prevOptions) => ({
-//     ...prevOptions,
-//     [optionKey]: !prevOptions[optionKey],
-//   }));
-// };
-// const handleCheckboxChange = (optionKey) => {
-//   setPrintOptions((prevOptions) => ({
-//     ...prevOptions,
-//     [optionKey]: !prevOptions[optionKey],
-//   }));
-// };
-
-
 
     console.log(printOptions);
   };
