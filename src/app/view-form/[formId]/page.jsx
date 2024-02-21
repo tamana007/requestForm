@@ -77,8 +77,9 @@ function Page({ params }) {
     return (
       <div className={styles.print}>
         <Logo />
-        <div className="print-form-container">
-          <h1>View Form</h1>
+        <div className={styles.printFormContainer}>
+          <h1 className={styles.header}>View Form</h1>
+          <div className={styles.rightContainer}>
           <div className="checkboxes">
             <label htmlFor="data1">
               <input
@@ -87,7 +88,7 @@ function Page({ params }) {
                 type="checkbox"
                 id="data1"
                 name="data1"
-                checked={!!viewUser.flyer}
+                checked={!!viewUser.socialMediaAd}
               />
               Social Media Ad
             </label>
@@ -99,6 +100,7 @@ function Page({ params }) {
                   type="checkbox"
                   id="data2"
                   name="data2"
+                  checked={!!viewUser.bussinessCard}
                 />
                 Bussiness Card
               </label>
@@ -111,6 +113,8 @@ function Page({ params }) {
                   type="checkbox"
                   id="data2"
                   name="data2"
+                checked={!!viewUser.flyer}
+
                 />
                 Flyer
               </label>
@@ -124,6 +128,8 @@ function Page({ params }) {
                   id="data2"
                   name="data2"
                   checked={!!viewUser.brouchure}
+                // checked={!!viewUser.brochure}
+
                 />
                 Brochure
               </label>
@@ -136,6 +142,8 @@ function Page({ params }) {
                   type="checkbox"
                   id="data2"
                   name="data2"
+                checked={!!viewUser.pullupBanner}
+
                 />
                 Pullup Banner
               </label>
@@ -148,6 +156,8 @@ function Page({ params }) {
                   type="checkbox"
                   id="data2"
                   name="data2"
+                checked={!!viewUser.tableTopBanner}
+
                 />
                 Table top Banner
               </label>
@@ -160,6 +170,8 @@ function Page({ params }) {
                   type="checkbox"
                   id="data2"
                   name="data2"
+                checked={!!viewUser.specialMerchandise}
+
                 />
                 Special Merchandise/Swag item
               </label>
@@ -172,6 +184,8 @@ function Page({ params }) {
                   type="checkbox"
                   id="data2"
                   name="data2"
+                checked={!!viewUser.placard}
+
                 />
                 Placard
               </label>
@@ -184,6 +198,8 @@ function Page({ params }) {
                   type="checkbox"
                   id="data2"
                   name="data2"
+                checked={!!viewUser.tableTopnewsPaper}
+
                 />
                 Marketing
               </label>
@@ -196,11 +212,13 @@ function Page({ params }) {
                   type="checkbox"
                   id="data2"
                   name="data2"
+                checked={!!viewUser.marketing}
+
                 />
                 Any other (Please Specify)
               </label>
             </div>
-            <div>
+            {/* <div>
               <label htmlFor="data2">
                 <input
                   readOnly
@@ -208,10 +226,12 @@ function Page({ params }) {
                   type="checkbox"
                   id="data2"
                   name="data2"
+                  checked={!!viewUser.anyOther}
+
                 />
                 What is your program name?
               </label>
-            </div>
+            </div> */}
 
             {/* Add more checkboxes as needed */}
           </div>
@@ -268,15 +288,16 @@ function Page({ params }) {
             </p>
             <div className={styles.signatures}>
               <p>Director Signature:</p>
-              <img src={signatureImageUrl} alt="Director's Signature" />
+              <img className={styles.signatureone} src={signatureImageUrl} alt="Director's Signature" />
               {/* <hr/> */}
             {/* </div> */}
 
             {/* <div> */}
               <p>Account Signature:</p>{" "}
-              <img src={accountImageUrl} alt="Director's Signature" />
+              <img className={styles.signaturetwo} src={accountImageUrl} alt="Director's Signature" />
             </div>
           </div>
+        </div>
         </div>
       </div>
 
@@ -312,9 +333,10 @@ function Page({ params }) {
     <div>
       <div className={styles.print}>
         <Logo />
-        <div className="print-form-container">
-          <h1>View Form</h1>
-          <div className="checkboxes">
+        <div className={styles.printFormContainer}>
+          <h1 className={styles.header}>View Form</h1>
+          <div className={styles.rightContainer}>
+          <div className={styles.checkboxes}>
             <label htmlFor="data1">
               <input
                 disabled
@@ -334,6 +356,7 @@ function Page({ params }) {
                   type="checkbox"
                   id="data2"
                   name="data2"
+                  checked={!!viewUser.bussinessCard}
                 />
                 Bussiness Card
               </label>
@@ -346,6 +369,8 @@ function Page({ params }) {
                   type="checkbox"
                   id="data2"
                   name="data2"
+                  checked={!!viewUser.flyer}
+
                 />
                 Flyer
               </label>
@@ -358,6 +383,8 @@ function Page({ params }) {
                   type="checkbox"
                   id="data2"
                   name="data2"
+                  checked={!!viewUser.Brochure}
+
                 />
                 Brochure
               </label>
@@ -370,6 +397,8 @@ function Page({ params }) {
                   type="checkbox"
                   id="data2"
                   name="data2"
+                  checked={!!viewUser.pullupBanner}
+
                 />
                 Pullup Banner
               </label>
@@ -382,6 +411,8 @@ function Page({ params }) {
                   type="checkbox"
                   id="data2"
                   name="data2"
+                  checked={!!viewUser.tableTopBanner}
+
                 />
                 Table top Banner
               </label>
@@ -407,6 +438,8 @@ function Page({ params }) {
                   type="checkbox"
                   id="data2"
                   name="data2"
+                  checked={!!viewUser.placard}
+
                 />
                 Placard
               </label>
@@ -419,6 +452,8 @@ function Page({ params }) {
                   type="checkbox"
                   id="data2"
                   name="data2"
+                  checked={!!viewUser.tableTopnewsPaper}
+
                 />
                 Marketing
               </label>
@@ -431,11 +466,13 @@ function Page({ params }) {
                   type="checkbox"
                   id="data2"
                   name="data2"
+                  checked={!!viewUser.marketing}
+
                 />
                 Any other (Please Specify)
               </label>
             </div>
-            <div>
+            {/* <div>
               <label htmlFor="data2">
                 <input
                   disabled
@@ -443,12 +480,15 @@ function Page({ params }) {
                   type="checkbox"
                   id="data2"
                   name="data2"
+                  checked={!!viewUser.anyOther}
+
                 />
                 What is your program name?
               </label>
-            </div>
+            </div> */}
 
             {/* Add more checkboxes as needed */}
+          {/* </div> */}
           </div>
           <div className="questions">
             <p>
@@ -464,51 +504,52 @@ function Page({ params }) {
             </p>
             {/* Add more questions and answers as needed */}
             <p>
-              Question 2: Director Email Address:
+              Question 3: Director Email Address:
               <br />
               Answer: {viewUser.directorEmail}
               <p type="text" name="answer2" />
             </p>
             <p>
-              Question 2: Please Specify the Size and Quantity (If relevant)
+              Question 4: Please Specify the Size and Quantity (If relevant)
               <br />
               Answer: {viewUser.size}
               <p type="text" name="answer2" />
             </p>
             <p>
-              Question 2: Please Write any side-note for Social Media
+              Question 5: Please Write any side-note for Social Media
               Post,Flyer/Brochure/Swag Item (If relevant)
               <br />
               Answer: {viewUser.sideNote}
               <p type="text" name="answer2" />
             </p>
             <p>
-              Question 2: Amount Approved?
+              Question 6: Amount Approved?
               <br />
               Answer: {viewUser.approvedAmount}
               <p type="text" name="answer2" />
             </p>
             <p>
-              Question 2: Budget approval by the Accounts Department?
+              Question 7: Budget approval by the Accounts Department?
               <br />
               Answer: {viewUser.budgetApprovalByAccount}
               <p type="text" name="answer2" />
             </p>
             <p>
-              Question 2: Invoince to be made under which Name/program ?
+              Question 8: Invoince to be made under which Name/program ?
               <br />
               Answer: {viewUser.invoiceTobeMade}
               <p type="text" name="answer2" />
             </p>
+            </div>
 
             {/* <hr /> */}
             <div className={styles.signatures}>
               <span>Director Signature:</span>{" "}
-              <img src={signatureImageUrl} alt="Director's Signature" />
+              <img className={styles.signatureone} src={signatureImageUrl} alt="Director's Signature" />
             {/* </div> */}
             {/* <div> */}
               <span>Account Signature:</span>{" "}
-              <img src={accountImageUrl} alt="Director's Signature" />
+              <img className={styles.signaturetwo} src={accountImageUrl} alt="Director's Signature" />
             </div>
           </div>
           {/* <button type="submit">Submit</button> */}

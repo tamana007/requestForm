@@ -38,7 +38,10 @@ function TableComp({handleView}) {
     <>
       <Logo />
       <div style={{ padding: "20px" }}>
-        <h2>Data Table</h2>
+        <div className={styles.requestTitle}>
+        <h2>List of All Incoming Requests ...</h2>
+
+        </div>
         <TableContainer component={Paper}>
           <Table>
             <TableHead>

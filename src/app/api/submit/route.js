@@ -80,18 +80,26 @@ Object.keys(formDataObject).forEach(item => {
   });
 
 
-
-
 let htmlContent = '<h1>Marketing Request Form</h1>';
 htmlContent += '<h2>All requests need to be submitted at least one-week in advance</h2>'; // Added h2 tag
 htmlContent += '<ul>'; // Use <ul> for an unordered list
 
+// Object.entries(formDataObject).forEach(([question, answer]) => {
+//   if (typeof answer === 'boolean') {
+//     // If the answer is a boolean, display a checkbox
+//     htmlContent += `<li><strong>${question}:</strong> <input type="checkbox" ${answer ? 'checked' : ''} disabled></li>`;
+//   } else {
+//     // If the answer is not a boolean, display the regular list item with only the answer in a box
+//     htmlContent += `<li><strong>${question}:</strong> <div style="display: inline-block; border: 1px solid #ccc; padding: 5px; margin-left: 10px;">${answer}</div></li>`;
+//   }
+// });
+
 Object.entries(formDataObject).forEach(([question, answer]) => {
   if (typeof answer === 'boolean') {
-    // If the answer is a boolean, display a checkbox
+    // If the answer is a boolean, add it to booleanQuestionsHtml
     htmlContent += `<li><strong>${question}:</strong> <input type="checkbox" ${answer ? 'checked' : ''} disabled></li>`;
   } else {
-    // If the answer is not a boolean, display the regular list item with only the answer in a box
+    // If the answer is not a boolean, add it to otherQuestionsHtml
     htmlContent += `<li><strong>${question}:</strong> <div style="display: inline-block; border: 1px solid #ccc; padding: 5px; margin-left: 10px;">${answer}</div></li>`;
   }
 });

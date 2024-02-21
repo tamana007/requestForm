@@ -7,6 +7,13 @@
   display: block;
 }
 /* styles.css */
+.requestTitle{
+  color: #3fb55d;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-size: 22px;
+}
 
 .customTableHeader {
   background-color: rgb(91, 131, 83); /* Primary color */
@@ -74,5 +81,34 @@
 .print{
   height: 100%;
   margin-bottom: 50px;
-  background-color: rosybrown;
+  /* background-color: rosybrown; */
+}
+.rightContainer{
+  display: grid;
+  align-items: right;
+  justify-content: center;
+  /* background-color: #1976d2; */
+}
+.checkboxes{
+  /* background-color: red; */
+  align-items: right;
+  justify-content: right;
+}
+
+
+.printFormContainer{
+  max-width: 800px;
+  margin: 10px auto;
+}
+
+.header {
+  display: flex;
+align-items: center;
+justify-content: center;
+}
+.signatureone{
+  width: 200px;
+}
+.signaturetwo{
+  width: 200px;
 }
