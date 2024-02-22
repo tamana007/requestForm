@@ -281,13 +281,13 @@ export async function POST(request, res) {
     // Send the email
     const info = await transporter.sendMail(mailOptions);
     console.log("Email sent:", info.response);
-    res.status(200).json({ message: "Email sent successfully!" });
+    Response.status(200).json({ message: "Email sent successfully!" });
   } catch (error) {
     console.error("Error sending email:", error);
-    res
+    Response
       .status(500)
       .json({ error: "An error occurred while sending the email." });
   }
 
-  return res.status(200).send(buffer);
+  return Response.status(200).send(buffer);
 }

@@ -13,9 +13,17 @@ export async function POST(request) {
 
   //Don't touch it...
   const formData = await request.formData()
-  const file = formData.get('file');
-  let arrayBuffer = await file.arrayBuffer();
-  const buffer = Buffer.from(arrayBuffer);
+  // console.log('formdataaaaaaaaaaaaa',formData);
+  const file1 = formData.get('file1');
+  const file2 = formData.get('file2');
+
+  // console.log('fileeeeeeeeeeeee',file1);
+  let arrayBuffer1 = await file1.arrayBuffer();
+  let arrayBuffer2 = await file2.arrayBuffer();
+
+  const buffer1 = Buffer.from(arrayBuffer1);
+  const buffer2 = Buffer.from(arrayBuffer2);
+
 // const buffer = doc.getZip().generate({ type: 'nodebuffer' });
 
 
@@ -23,7 +31,9 @@ export async function POST(request) {
   // const blob = await request.blob();
 
   //Find the type of file... such as pdf, doc, jpeg, png...
-  const mimeType = mimeTypes.lookup(file.name) || 'application/octet-stream'; // Default to binary if MIME type is not found
+  const mimeType = mimeTypes.lookup(file1.name) || 'application/octet-stream'; // Default to binary if MIME type is not found
+  const mimeType2 = mimeTypes.lookup(file2.name) || 'application/octet-stream'; // Default to binary if MIME type is not found
+
 
   //Change formData to an object...
   const formDataObject = {};
@@ -84,15 +94,7 @@ let htmlContent = '<h1>Marketing Request Form</h1>';
 htmlContent += '<h2>All requests need to be submitted at least one-week in advance</h2>'; // Added h2 tag
 htmlContent += '<ul>'; // Use <ul> for an unordered list
 
-// Object.entries(formDataObject).forEach(([question, answer]) => {
-//   if (typeof answer === 'boolean') {
-//     // If the answer is a boolean, display a checkbox
-//     htmlContent += `<li><strong>${question}:</strong> <input type="checkbox" ${answer ? 'checked' : ''} disabled></li>`;
-//   } else {
-//     // If the answer is not a boolean, display the regular list item with only the answer in a box
-//     htmlContent += `<li><strong>${question}:</strong> <div style="display: inline-block; border: 1px solid #ccc; padding: 5px; margin-left: 10px;">${answer}</div></li>`;
-//   }
-// });
+
 
 Object.entries(formDataObject).forEach(([question, answer]) => {
   if (typeof answer === 'boolean') {
@@ -122,13 +124,29 @@ htmlContent += `<p> Please click on this link for reivewing application: ${url}`
     subject: "Marketing E-request Form...",
     text: 'Please find the attached file.',
     html: htmlContent,
+    // attachments: [
+    //   {
+    //     filename: 'attached-file',
+    //     content: buffer,
+    //     encoding: 'base64', // Set the encoding to base64
+    //     contentType: mimeType,
+    //   },
+
     attachments: [
       {
-        filename: 'attached-file',
-        content: buffer,
-        encoding: 'base64', // Set the encoding to base64
+        filename: 'attached-file1',
+        content: buffer1, // buffer1 is the buffer for the first attachment
+        encoding: 'base64',
         contentType: mimeType,
       },
+      {
+        filename: 'attached-file2',
+        content: buffer2, // buffer2 is the buffer for the second attachment
+        encoding: 'base64',
+        contentType: mimeType2,
+      },
+    // ],
+    
     ],
   };
 
