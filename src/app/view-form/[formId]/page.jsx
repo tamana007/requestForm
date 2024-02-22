@@ -218,22 +218,9 @@ function Page({ params }) {
                 Any other (Please Specify)
               </label>
             </div>
-            {/* <div>
-              <label htmlFor="data2">
-                <input
-                  readOnly
-                  disabled
-                  type="checkbox"
-                  id="data2"
-                  name="data2"
-                  checked={!!viewUser.anyOther}
+         
 
-                />
-                What is your program name?
-              </label>
-            </div> */}
-
-            {/* Add more checkboxes as needed */}
+           
           </div>
           <div className="questions">
             <p>
