@@ -16,7 +16,7 @@ function TempComponent({ directorFunc }) {
 
   const [programName, setProgramName] = useState("");
   const [attachment, setAttachment] = useState(null);
-  const [secondAttachment,setSecondAttachment]=useState(null);
+  const [secondAttachment, setSecondAttachment] = useState(null);
   const [answers, setAnswers] = useState(
     questions.reduce((acc, question) => {
       acc[question.key] = "";
@@ -49,10 +49,18 @@ function TempComponent({ directorFunc }) {
 
     //append file to formData...
     const formData = new FormData();
+    //
+    // // Convert file attachments to strings
+    // const file1Content = await fileToString(attachment);
+    // const file2Content = await fileToString(secondAttachment);
+
+    // // Append file contents as strings to formData
+    // formData.append("file1", file1Content);
+    // formData.append("file2", file2Content);
+
     // formData.append("file", attachment,secondAttachment);
     formData.append("file1", attachment);
-formData.append("file2", secondAttachment);
-
+    formData.append("file2", secondAttachment);
 
     console.log("answersssss", printOptions);
     //loop through answers object and Append its keys and values to formData..
@@ -64,6 +72,7 @@ formData.append("file2", secondAttachment);
     for (const property in printOptions) {
       formData.append(property, printOptions[property]);
     }
+    console.log("Form Data see", formData);
 
     const res = await fetch("/api/submit", {
       method: "POST",
@@ -91,6 +100,20 @@ formData.append("file2", secondAttachment);
 
   async function NodeActionReturn(formData) {
     const res = NodeAction(formData);
+
+    // Function to convert File to string asynchronously
+    async function fileToString(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          resolve(event.target.result); // The file content as a string
+        };
+        reader.onerror = (error) => {
+          reject(error);
+        };
+        reader.readAsText(file); // Read the file as text
+      });
+    }
   }
 
   return (
@@ -145,7 +168,8 @@ formData.append("file2", secondAttachment);
             <div className="attachment-section">
               <label htmlFor="attachment">
                 {" "}
-                Please Attach Information for Social Media Post,Flyer/Brochure/Other Things.
+                Please Attach Information for Social Media
+                Post,Flyer/Brochure/Other Things.
               </label>
               <br />
               <input
