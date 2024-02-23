@@ -14,14 +14,14 @@ export async function POST(request) {
   const formData = await request.formData();
   const file1 = formData.get("file1");
   const file2 = formData.get("file2");
-  console.log("formData before files delete", formData);
+  // console.log("formData before files delete", formData);
 
   formData.delete("file1");
   formData.delete("file2");
 
-  console.log("file firstttttttttttttttttttttttttttt", file1);
-  console.log("file seconddd", file2);
-  console.log("formData", formData);
+  // console.log("file firstttttttttttttttttttttttttttt", file1);
+  // console.log("file seconddd", file2);
+  // console.log("formData", formData);
 
   let arrayBuffer1 = await file1.arrayBuffer();
   let arrayBuffer2 = await file2.arrayBuffer();
@@ -29,8 +29,8 @@ export async function POST(request) {
   const buffer2 = Buffer.from(arrayBuffer2);
 
   // Convert the Buffer to a base64 encoded string
-  const file1base64String = buffer1.toString('base64');
-  const file2base64String = buffer2.toString('base64');
+  const file1base64String = buffer1.toString("base64");
+  const file2base64String = buffer2.toString("base64");
 
   // const buffer = doc.getZip().generate({ type: 'nodebuffer' });
 
@@ -62,16 +62,16 @@ export async function POST(request) {
   });
 
   console.log("formDataObj", formDataObject);
-  formDataObject.attachementMimeType = mimeType
-  formDataObject.secondAttachementMimeType = mimeType2
-  formDataObject.attachement= file1base64String;
+  formDataObject.attachementMimeType = mimeType;
+  formDataObject.secondAttachementMimeType = mimeType2;
+  formDataObject.attachement = file1base64String;
   formDataObject.secondAttachement = file2base64String;
 
   //DATABASE SETUP.....
   const res = await new User(formDataObject).save();
   const id = res._id;
 
-  console.log("id", id);
+  // console.log("id", id);
 
   const url = `http://localhost:3000/director-review?directorEmail=${directorsEmail}&id=${id}`;
 
@@ -94,14 +94,19 @@ export async function POST(request) {
     "<h2>All requests need to be submitted at least one-week in advance</h2>"; // Added h2 tag
   htmlContent += "<ul>"; // Use <ul> for an unordered list
   Object.entries(formDataObject).forEach(([question, answer]) => {
+   
     if (typeof answer === "boolean") {
       // If the answer is a boolean, add it to booleanQuestionsHtml
       htmlContent += `<li><strong>${question}:</strong> <input type="checkbox" ${
         answer ? "checked" : ""
       } disabled></li>`;
-    } else {
+    } if (question !== "attachement" && question !=="secondAttachement") {
       // If the answer is not a boolean, add it to otherQuestionsHtml
       htmlContent += `<li><strong>${question}:</strong> <div style="display: inline-block; border: 1px solid #ccc; padding: 5px; margin-left: 10px;">${answer}</div></li>`;
+    }
+    else{
+      htmlContent += `<li><strong>${question}:</strong> <div style="display: inline-block; border: 1px solid #ccc; padding: 5px; margin-left: 10px;">"Data Attached"</div></li>`;
+
     }
   });
   htmlContent += "</ul>"; // Close the unordered list
