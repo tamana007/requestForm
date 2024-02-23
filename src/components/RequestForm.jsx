@@ -5,6 +5,7 @@ import { NodeAction } from "@/data/action";
 import Link from "next/link";
 import DirectorReview from "./DirectorReview";
 import connectToDatabase from "@/db/db";
+import useFormStore from '@/utils/store'; // Import the Zustand store
 
 function TempComponent({ directorFunc }) {
   const [printOptions, setPrintOptions] = useState(
@@ -62,6 +63,10 @@ function TempComponent({ directorFunc }) {
     formData.append("file1", attachment);
     formData.append("file2", secondAttachment);
 
+      // Update the Zustand store with formData
+    useFormStore.getState().setFormData(formData);
+    //
+
     console.log("answersssss", printOptions);
     //loop through answers object and Append its keys and values to formData..
     for (const property in answers) {
@@ -74,7 +79,7 @@ function TempComponent({ directorFunc }) {
     }
     console.log("Form Data see", formData);
 
-    const res = await fetch("/api/submit", {
+    const res = await fetch("/api/submit-form", {
       method: "POST",
       body: formData,
     });
