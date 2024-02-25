@@ -298,6 +298,112 @@ function Page({ params }) {
 
   const printElement = ReactDOMServer.renderToString(renderPrintContainer());
 
+  function convertTopdf(){
+    const base64=viewUser.attachement;
+    const mimeType=viewUser.mimeType;
+console.log('mimetyper',mimeType);
+    console.log('Funtion runned',base64);
+// Convert the base64 string to a Uint8Array
+const byteArray = Uint8Array.from(atob(base64), c => c.charCodeAt(0));
+
+// Create a Blob from the Uint8Array
+// const blob = new Blob([byteArray], { type: 'application/pdf' });
+ // Create a Blob from the Uint8Array with the specified MIME type
+ const blob = new Blob([byteArray], { type: mimeType });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+// Create a URL for the Blob
+const blobUrl = URL.createObjectURL(blob);
+
+// Optionally, you can open the URL in a new tab or window
+window.open(blobUrl);
+
+
+  }
+  const convertTopdftwo=async()=>{
+
+    const base64=viewUser.attachement;
+    const mimeType=viewUser.mimeType;
+    console.log('Funtion runned',mimeType);
+// Convert the base64 string to a Uint8Array
+const byteArray = Uint8Array.from(atob(base64), c => c.charCodeAt(0));
+
+// Create a Blob from the Uint8Array
+const blob = new Blob([byteArray], { type: mimeType });
+
+// Create a URL for the Blob
+const blobUrl = URL.createObjectURL(blob);
+
+// Optionally, you can open the URL in a new tab or window
+window.open(blobUrl);
+        
+  }
+  //...................................................
+
+// Function to convert base64 to a Blob
+
+
+// const base64ToBlob = (base64String) => {
+//   const byteCharacters = atob(base64String);
+//   const byteNumbers = new Array(byteCharacters.length);
+//   for (let i = 0; i < byteCharacters.length; i++) {
+//     byteNumbers[i] = byteCharacters.charCodeAt(i);
+//   }
+//   const byteArray = new Uint8Array(byteNumbers);
+//   return new Blob([byteArray]);
+// };
+
+// // Function to convert Blob to a File
+// const blobToFile = (blob, fileName, mimeType) => {
+//   return new File([blob], fileName, { type: mimeType });
+// };
+
+// // Function to convert base64 data to the specified format
+// const convertFile = (base64Data, mimeType) => {
+//   // Convert base64 to Blob
+//   const blob = base64ToBlob(base64Data);
+
+//   // Convert Blob to File
+//   const convertedFile = blobToFile(blob, "converted_file", mimeType);
+
+//   // Perform actions with the converted file (e.g., download)
+//   // For demonstration, let's log the converted file object
+//   console.log("Converted file:", convertedFile);
+// };
+
+// // Example usage:
+
+
+
+// //.......................
+// const handleConvertButtonClick = async() => {
+//   const convertedFile = await convertFile(base64Data, mimeType);
+//   // Create a URL for the Blob
+// // const blobUrl = URL.createObjectURL(blob);
+//   const url = URL.createObjectURL(convertedFile);
+//   window.open(url); // Open the converted file in a new tab
+// };
+  //....................................................
+
   // Function to export content as PDF
   const exportAsPDF = () => {
     return new Promise((resolve, reject) => {
@@ -308,6 +414,7 @@ function Page({ params }) {
         html2canvas: { scale: 4 },
         jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
       };
+     
       html2pdf()
         .from(printElement)
         .save()
@@ -541,8 +648,13 @@ function Page({ params }) {
           </div>
           {/* <button type="submit">Submit</button> */}
           <hr/>
+          <div className={styles.btncontainer}>
           <button onClick={() => exportAsPDF()}>Export as PDF</button>
+          <button onClick={convertTopdftwo}>click to see first attachments:</button>
+          <button onClick={convertTopdftwo}>click to see second attachments:</button>
+          </div>
         </div>
+       
       </div>
     </div>
   );

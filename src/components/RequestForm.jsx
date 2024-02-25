@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { options, questions } from "@/data/options"; // Import questions array
 import { NodeAction } from "@/data/action";
 import Link from "next/link";
@@ -16,6 +16,7 @@ function TempComponent({ directorFunc }) {
   );
 
   const [programName, setProgramName] = useState("");
+  const {formData:fmData, setFormData} = useFormStore()
   const [attachment, setAttachment] = useState(null);
   const [secondAttachment, setSecondAttachment] = useState(null);
   const [answers, setAnswers] = useState(
@@ -63,9 +64,10 @@ function TempComponent({ directorFunc }) {
     formData.append("file1", attachment);
     formData.append("file2", secondAttachment);
 
-      // Update the Zustand store with formData
-    useFormStore.getState().setFormData(formData);
-    //
+    // Update the Zustand store with formData directly
+    // useFormStore.getState().setFormData(formData);
+    setFormData(formData)
+    //....................................................
 
     console.log("answersssss", printOptions);
     //loop through answers object and Append its keys and values to formData..
@@ -119,6 +121,7 @@ function TempComponent({ directorFunc }) {
         reader.readAsText(file); // Read the file as text
       });
     }
+    useEffect(()=>{console.log('zustand data',formData);},[formData])
   }
 
   return (

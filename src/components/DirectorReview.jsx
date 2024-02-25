@@ -4,13 +4,9 @@ import axios from 'axios';
 import SignatureCanvas from 'react-signature-canvas';
 import styles from '../Style/DirectorReview.module.css'; // Create a CSS file for styling
 import { useSearchParams } from 'next/navigation'
-import useFormStore from '@/utils/store'; // Import the Zustand store
+// import useFormStore from './store'; // Import the Zustand store
 
 function DirectorReview() {
-
-   // Retrieve formData from the Zustand store
-   const formData = useFormStore((state) => state.formData);
-
   const signatureCanvasRef = useRef(null);
   //using search param I can send static data...to endpoint
   const searchParams = useSearchParams()
@@ -60,16 +56,6 @@ function DirectorReview() {
 
 //SEND SIGNATURE TO EMAIL API.......................
   const handleSendEmail = async () => {
-    const formData1 = useFormStore((state) => state.formData);
-
-    // Check if formData is null or undefined
-    if (!formData1) {
-      console.error("Form data is not yet initialized");
-      return;
-    }
-
-
-
     const signature = signatureCanvasRef.current.toDataURL();
 
       // Convert base64-encoded image data to a Blob object
