@@ -64,6 +64,9 @@ export async function POST(request) {
   console.log("formDataObj", formDataObject);
   formDataObject.attachementMimeType = mimeType;
   formDataObject.secondAttachementMimeType = mimeType2;
+
+  console.log("mimeetype", mimeType)
+  console.log("mimeetype", mimeType2)
   formDataObject.attachement = file1base64String;
   formDataObject.secondAttachement = file2base64String;
 
