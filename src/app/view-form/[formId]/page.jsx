@@ -33,8 +33,8 @@ function Page({ params }) {
         // Decode the signature image and set the URL
         if (data.user.signature) {
           // console.log(data.user.signature)
-          const base64String = data.user.signature.toString("base64");
-          const base64Account = data.user.accountSignature.toString("base64");
+          const base64String = data?.user?.signature.toString("base64");
+          const base64Account = data?.user?.accountSignature.toString("base64");
           console.log("ACCOUNT SIGNAUTERE", base64Account);
 
           const imgString = `data:image/png;base64,${base64String}`;
@@ -318,35 +318,18 @@ function Page({ params }) {
     link.click(); // Programmatically click the link to trigger the download
   };
   //.................
-  // Function to handle the button click
-
-  const handleButtonClick = () => {
-    // Example base64 data and MIME type
-    const base64Data = viewUser.attachement; // Your base64 data variable
-    const mimeType =
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"; // Your MIME type variable
-
-    // Check if the MIME type is for a Word document
-    if (
-      mimeType ===
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-    ) {
-      // If it's a Word document, download it as .docx
-      downloadDocxFile(base64Data, "document.docx");
-    } else {
-      // Otherwise, handle other MIME types or show an error message
-      console.error("Unsupported MIME type");
-    }
-  };
+  
   //.........................................................
 
-  function convertTopdf() {
-    const base64 = viewUser.attachement;
-    const mimeType = viewUser.mimeType;
+  function convertTopdf(file,mimeType) {
+    // const base64 = viewUser.attachement;
+    // const mimeType = viewUser.attachementMimeType;
+    // const test= viewUser.invoiceTobeMade;
+
     console.log("mimetyper", mimeType);
-    console.log("Funtion runned", base64);
+    // console.log("Funtion runned", test);
     // Convert the base64 string to a Uint8Array
-    const byteArray = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
+    const byteArray = Uint8Array.from(atob(file), (c) => c.charCodeAt(0));
     // Create a Blob from the Uint8Array
     // const blob = new Blob([byteArray], { type: 'application/pdf' });
     // Create a Blob from the Uint8Array with the specified MIME type
@@ -356,6 +339,53 @@ function Page({ params }) {
     // Optionally, you can open the URL in a new tab or window
     window.open(blobUrl);
   }
+
+  // Function to handle the button click
+
+  // const handleButtonClick = () => {
+  //   // Example base64 data and MIME type
+  //   const base64Data = viewUser.attachement; // Your base64 data variable
+  //   const mimeType =
+  //     "application/vnd.openxmlformats-officedocument.wordprocessingml.document"; // Your MIME type variable
+
+  //   // Check if the MIME type is for a Word document
+  //   if (
+  //     mimeType ===
+  //     "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+  //   ) {
+  //     // If it's a Word document, download it as .docx
+  //     downloadDocxFile(base64Data, "document.docx");
+  //   } else {
+  //     // Otherwise, handle other MIME types or show an error message
+  //     console.error("Unsupported MIME type");
+  //   }
+  // };
+
+  const handleButtonClick = async(file, mimeType) => {
+    // const firstAttachement = viewUser.attachement;
+    // const SecondAttachement = viewUser.secondAttachement;
+    // const firstMimeType =viewUser.attachementMimeType;
+    // const secondMimeType =viewUser.secondAttachementMimeType;
+
+    console.log("MIME type:", mimeType); // Log the MIME type to verify its value
+    // console.log('invoice',test);
+
+    // Check if the MIME type is for a Word document
+    if (
+      mimeType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ) {
+        // If it's a Word document, download it as .docx
+        downloadDocxFile(file, "document.docx");
+    } else if (mimeType === "application/pdf") {
+        // If it's a PDF document, convert it to PDF
+        convertTopdf(file, mimeType);
+    } else {
+        // Otherwise, show an error message or handle other MIME types accordingly
+        console.error("Unsupported MIME type:", mimeType);
+    }
+};
+
+
 
   //....................................................
 
@@ -606,10 +636,10 @@ function Page({ params }) {
           <hr />
           <div className={styles.btncontainer}>
             <button onClick={() => exportAsPDF()}>Export as PDF</button>
-            <button onClick={convertTopdf}>
+            <button onClick={()=>handleButtonClick(viewUser.attachement, viewUser.attachementMimeType)}>
               click to see first attachments:
             </button>
-            <button onClick={handleButtonClick}>
+            <button onClick={()=>handleButtonClick(viewUser.secondAttachement,viewUser.secondAttachementMimeType)}>
               click to see second attachments:
             </button>
           </div>

@@ -9,6 +9,7 @@ import {
   TableRow,
   Paper,
   Button,
+  CircularProgress, // Step 1: Import CircularProgress
 } from "@mui/material";
 import Logo from "@/components/Logo";
 import styles from "@/Style/tableData.module.css";
@@ -16,8 +17,8 @@ import Link from "next/link";
 
 function TableComp({handleView}) {
   const [forms, setForms] = useState([]);
-  // const router=useRouter();
-  // const {formId}=router.query;
+  const [loading, setLoading] = useState(true); // Step 2: Create loading state
+ 
 
   
   useEffect(() => {
@@ -28,6 +29,9 @@ function TableComp({handleView}) {
         setForms(data.users);
       } catch (error) {
         console.log(error);
+      }
+      finally{
+        setLoading(false)
       }
     };
 
@@ -42,6 +46,10 @@ function TableComp({handleView}) {
         <h2>List of All Incoming Requests ...</h2>
 
         </div>
+        {loading? 
+         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}>
+         <CircularProgress style={{ color: '#2196f3' }} thickness={5} size={50} />
+          </div>:
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
@@ -126,6 +134,7 @@ function TableComp({handleView}) {
             </TableBody>
           </Table>
         </TableContainer>
+}
       </div>
     </>
   );
