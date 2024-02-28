@@ -5,15 +5,11 @@ import ReactDOMServer from "react-dom/server";
 import html2pdf from "html2pdf.js";
 import Logo from "@/components/Logo";
 import Print from "@/components/print";
-// import styles from '@/Style/tableData.module.css';
-// import styles from '@/Style/tableData.module.css';
-// Create a CSS file for styling
 import styles from "../../../Style/tableData.module.css";
 
 function Page({ params }) {
   const id = params.formId;
   const [viewUser, setViewUser] = useState({});
-  // const [check, isChecked] = useState("");
   const [signatureImageUrl, setSignatureImageUrl] = useState(null);
   const [accountImageUrl, setAccountSignature] = useState(null);
 
@@ -35,15 +31,11 @@ function Page({ params }) {
           // console.log(data.user.signature)
           const base64String = data?.user?.signature.toString("base64");
           const base64Account = data?.user?.accountSignature.toString("base64");
-          console.log("ACCOUNT SIGNAUTERE", base64Account);
-
+          // console.log("ACCOUNT SIGNAUTERE", base64Account);
           const imgString = `data:image/png;base64,${base64String}`;
           const accountSignatureImg = `data:image/png;base64,${base64Account}`;
-
           const decodedSignature = atob(base64String);
-          //
           const accountdecodeSignature = atob(base64Account);
-
           const signatureBlob = new Blob([decodedSignature], {
             type: "image/png",
           });
@@ -53,11 +45,6 @@ function Page({ params }) {
           });
           const imageUrl = URL.createObjectURL(signatureBlob);
           setSignatureImageUrl(imgString);
-          console.log(
-            "acountttttttttttttttttttttttttttttttttttttttttttt",
-            accountSignatureImg
-          );
-          //
           const accountImgurl = URL.createObjectURL(accountsignatureBlob);
           setAccountSignature(accountSignatureImg);
         }
@@ -286,12 +273,6 @@ function Page({ params }) {
           </div>
         </div>
       </div>
-
-      // <div className="print-container">
-      //   <Logo />
-      //   <p>Helloooooo {viewUser.programName}</p>
-      //   <h1>This is my View Form page and form Id is: {params.formId}</h1>
-      // </div>
     );
   };
 
@@ -318,74 +299,37 @@ function Page({ params }) {
     link.click(); // Programmatically click the link to trigger the download
   };
   //.................
-  
+
   //.........................................................
 
-  function convertTopdf(file,mimeType) {
-    // const base64 = viewUser.attachement;
-    // const mimeType = viewUser.attachementMimeType;
-    // const test= viewUser.invoiceTobeMade;
-
+  function convertTopdf(file, mimeType) {
     console.log("mimetyper", mimeType);
-    // console.log("Funtion runned", test);
-    // Convert the base64 string to a Uint8Array
     const byteArray = Uint8Array.from(atob(file), (c) => c.charCodeAt(0));
-    // Create a Blob from the Uint8Array
-    // const blob = new Blob([byteArray], { type: 'application/pdf' });
-    // Create a Blob from the Uint8Array with the specified MIME type
     const blob = new Blob([byteArray], { type: mimeType });
     // Create a URL for the Blob
     const blobUrl = URL.createObjectURL(blob);
-    // Optionally, you can open the URL in a new tab or window
     window.open(blobUrl);
   }
 
-  // Function to handle the button click
-
-  // const handleButtonClick = () => {
-  //   // Example base64 data and MIME type
-  //   const base64Data = viewUser.attachement; // Your base64 data variable
-  //   const mimeType =
-  //     "application/vnd.openxmlformats-officedocument.wordprocessingml.document"; // Your MIME type variable
-
-  //   // Check if the MIME type is for a Word document
-  //   if (
-  //     mimeType ===
-  //     "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-  //   ) {
-  //     // If it's a Word document, download it as .docx
-  //     downloadDocxFile(base64Data, "document.docx");
-  //   } else {
-  //     // Otherwise, handle other MIME types or show an error message
-  //     console.error("Unsupported MIME type");
-  //   }
-  // };
-
-  const handleButtonClick = async(file, mimeType) => {
-    // const firstAttachement = viewUser.attachement;
-    // const SecondAttachement = viewUser.secondAttachement;
-    // const firstMimeType =viewUser.attachementMimeType;
-    // const secondMimeType =viewUser.secondAttachementMimeType;
-
+  const handleButtonClick = async (file, mimeType) => {
     console.log("MIME type:", mimeType); // Log the MIME type to verify its value
     // console.log('invoice',test);
 
     // Check if the MIME type is for a Word document
     if (
-      mimeType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      mimeType ===
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
     ) {
-        // If it's a Word document, download it as .docx
-        downloadDocxFile(file, "document.docx");
+      // If it's a Word document, download it as .docx
+      downloadDocxFile(file, "document.docx");
     } else if (mimeType === "application/pdf") {
-        // If it's a PDF document, convert it to PDF
-        convertTopdf(file, mimeType);
+      // If it's a PDF document, convert it to PDF
+      convertTopdf(file, mimeType);
     } else {
-        // Otherwise, show an error message or handle other MIME types accordingly
-        console.error("Unsupported MIME type:", mimeType);
+      // Otherwise, show an error message or handle other MIME types accordingly
+      console.error("Unsupported MIME type:", mimeType);
     }
-};
-
-
+  };
 
   //....................................................
 
@@ -636,10 +580,24 @@ function Page({ params }) {
           <hr />
           <div className={styles.btncontainer}>
             <button onClick={() => exportAsPDF()}>Export as PDF</button>
-            <button onClick={()=>handleButtonClick(viewUser.attachement, viewUser.attachementMimeType)}>
+            <button
+              onClick={() =>
+                handleButtonClick(
+                  viewUser.attachement,
+                  viewUser.attachementMimeType
+                )
+              }
+            >
               click to see first attachments:
             </button>
-            <button onClick={()=>handleButtonClick(viewUser.secondAttachement,viewUser.secondAttachementMimeType)}>
+            <button
+              onClick={() =>
+                handleButtonClick(
+                  viewUser.secondAttachement,
+                  viewUser.secondAttachementMimeType
+                )
+              }
+            >
               click to see second attachments:
             </button>
           </div>
