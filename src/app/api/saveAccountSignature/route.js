@@ -27,7 +27,7 @@ export async function POST(req, res) {
     //Tring to access id from the URL link
     const url = new URL(req.url);
     const id = url.searchParams.get("id");
-    // console.log('idddddddddddddd',id);
+    console.log('idddddddddddddd',id);
 
     if (!id) {
       return Response.json({ error: "ID parameter is missing" });

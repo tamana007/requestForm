@@ -70,7 +70,7 @@ export async function POST(request) {
 
   // console.log("id", id);
 
-  const url = `http://localhost:3000/director-review?directorEmail=${directorsEmail}?&id=${id}?&email=${directorEmail}`;
+  const url = `http://localhost:3000/director-review?id=${id}&email=${directorEmail}`;
 
   //Email configuration....
   const transporter = nodemailer.createTransport({

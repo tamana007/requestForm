@@ -13,6 +13,7 @@ function AccountsReview() {
   const [secondAttachement, setSecondAttachement] = useState(null);
 
   const id = searchParams.get("id");
+  const email=searchParams.get("email");
 
   const saveAcountSignature = async () => {
     //Save Account's Signature to Databasse
@@ -130,7 +131,7 @@ function AccountsReview() {
     formData.append("signature", blob, "image.png");
 
     try {
-      const response = await fetch("/api/accountApproval", {
+      const response = await fetch(`/api/accountApproval?email=${email}`, {
         method: "POST",
         body: formData,
       });

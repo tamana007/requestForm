@@ -15,13 +15,13 @@ export async function POST(request, res) {
   
   const url = new URL(request.url);
   const id = url.searchParams.get("id");
-  const accountEmail=url.searchParams.get("email")
-  // console.log('id from send signatre to email route --------------',id);
+  const accountEmail=url.searchParams.get("dir")
+  console.log('id from send signatre to email route --------------$$$$$$$$',id);
   console.log(
-    "Account email from formData received In Director Route------------------",
+    "Account email from formData received In Director Route--------------------------------------------------------------------------",
     accountEmail
   );
-
+// console.log('Check formdata0000000000000000000000000000000',formData);
   const getForm = await User.findOne({ _id: id });
   // console.log('Form Received*****************************',getForm);
 
@@ -265,7 +265,7 @@ export async function POST(request, res) {
        <hr /> 
       <div>
       <p>Director approval is attached!</p>
-        <span>Please Click the Link to Sign the Request: <link href ="http://localhost:3000/account-review">http://localhost:3000/account-review?id=${id} </link> </span>
+        <span>Please Click the Link to Sign the Request: <link href ="http://localhost:3000/account-review">http://localhost:3000/account-review?id=${id}&email=${accountEmail} </link> </span>
        
       </div>
       

@@ -23,6 +23,7 @@ export async function POST(req, res) {
     //Tring to access id from the URL link
     const url = new URL(req.url);
     const id = url.searchParams.get("id");
+    console.log('check save signature.........',id);
 
     if (!id) {
       return res.status(400).json({ error: "ID parameter is missing" });

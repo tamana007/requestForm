@@ -12,9 +12,9 @@ function DirectorReview() {
   const searchParams = useSearchParams()
   const search = searchParams.get('directorEmail')
   const id = searchParams.get('id')
-  const directorEmail=searchParams.get('directorEmail');
+  const directorEmail=searchParams.get('email');
   console.log("params", search, id)
-  console.log('cHECK DIRECTOR EMAIL FOR ACCOUNT',directorEmail);
+  // console.log('cHECK DIRECTOR EMAIL FOR ACCOUNT',directorEmail);
 
 //SaveSignature API
 
@@ -23,7 +23,8 @@ function DirectorReview() {
     // console.log("signature image", signature)
     // Convert base64-encoded image data to a Blob object
     const blob = await (await fetch(signature)).blob();
-    console.log("blob", blob)
+    // console.log("blob", blob)
+    // console.log('CHECK SEARCH PARAM8*********************',directorEmail);
 
 
   // Create a FormData object
@@ -35,7 +36,7 @@ function DirectorReview() {
     console.log(typeof formData);
     
     try {
-      const response = await fetch(`/api/saveSignature?id=${id}?directorEmail=${directorEmail}`, {
+      const response = await fetch(`/api/saveSignature?id=${id}`, {
         method: 'POST',
         body: formData,
       });
@@ -68,11 +69,12 @@ function DirectorReview() {
 
     // Append the Blob object to the FormData object
     formData.append("signature", blob, "image.png");
+    formData.append("direcorEmail",directorEmail);
     console.log("signiture", formData)
     // console.log(typeof formData);
     
     try {
-      const response = await fetch(`/api/sendEmail?id=${id}`, {
+      const response = await fetch(`/api/sendEmail?dir=${directorEmail}&id=${id}`, {
         method: 'POST',
         body: formData,
       });

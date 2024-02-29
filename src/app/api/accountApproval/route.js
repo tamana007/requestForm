@@ -10,6 +10,10 @@ export async function POST (request, res) {
   let arrayBuffer = await signature.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
 
+  const url=new URL(request.url);
+  const email=url.searchParams.get("email");
+  console.log('email is coming from Account Approval Route to send to communication',email);
+
     //Find the type of file... such as pdf, doc, jpeg, png...
   const mimeType = mimeTypes.lookup(signature.name) || 'application/octet-stream'; // Default to binary if MIME type is not found
   
@@ -33,7 +37,7 @@ export async function POST (request, res) {
   // Construct the email
   const mailOptions = {
     from: 'tamana.efatwira1@gmail.com',
-    to: 'tamana.efatwira2@gmail.com',
+    to: email,
     subject: 'Director Signature',
     html: `<p>Request Approved by Account department! Click the link to access the request form:<link> http://localhost:3000/forms-table </link></p><img src="${signature}" alt="Director Signature"/>`,
     attachments: [
