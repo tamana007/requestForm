@@ -14,25 +14,19 @@ export async function POST(request) {
   const formData = await request.formData();
   const file1 = formData.get("file1");
   const file2 = formData.get("file2");
-  // console.log("formData before files delete", formData);
-
+  const directorEmail=formData.get("file3")
   formData.delete("file1");
   formData.delete("file2");
-
-  // console.log("file firstttttttttttttttttttttttttttt", file1);
-  // console.log("file seconddd", file2);
-  // console.log("formData", formData);
-
+  formData.delete("directorEmail");
   let arrayBuffer1 = await file1.arrayBuffer();
   let arrayBuffer2 = await file2.arrayBuffer();
+  
   const buffer1 = Buffer.from(arrayBuffer1);
   const buffer2 = Buffer.from(arrayBuffer2);
-
   // Convert the Buffer to a base64 encoded string
   const file1base64String = buffer1.toString("base64");
   const file2base64String = buffer2.toString("base64");
 
-  // const buffer = doc.getZip().generate({ type: 'nodebuffer' });
 
   //Find the type of file... such as pdf, doc, jpeg, png...
   const mimeType = mimeTypes.lookup(file1.name) || "application/octet-stream"; // Default to binary if MIME type is not found
@@ -76,7 +70,7 @@ export async function POST(request) {
 
   // console.log("id", id);
 
-  const url = `http://localhost:3000/director-review?directorEmail=${directorsEmail}&id=${id}`;
+  const url = `http://localhost:3000/director-review?directorEmail=${directorsEmail}?&id=${id}?&email=${directorEmail}`;
 
   //Email configuration....
   const transporter = nodemailer.createTransport({
@@ -117,7 +111,8 @@ export async function POST(request) {
 
   const mailOptions = {
     from: "tamana.efatwira1@gmail.com",
-    to: "tamana.efatwira2@gmail.com",
+    // to: "tamana.efatwira2@gmail.com",
+    to:directorEmail,
 
     subject: "Marketing E-request Form...",
     text: "Please find the attached file.",

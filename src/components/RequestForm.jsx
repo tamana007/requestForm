@@ -5,7 +5,7 @@ import { NodeAction } from "@/data/action";
 import Link from "next/link";
 import DirectorReview from "./DirectorReview";
 import connectToDatabase from "@/db/db";
-import useFormStore from '@/utils/store'; // Import the Zustand store
+import useFormStore from "@/utils/store"; // Import the Zustand store
 
 function TempComponent({ directorFunc }) {
   const [printOptions, setPrintOptions] = useState(
@@ -16,24 +16,26 @@ function TempComponent({ directorFunc }) {
   );
 
   const [programName, setProgramName] = useState("");
-  const {formData:fmData, setFormData} = useFormStore()
+  const { formData: fmData, setFormData } = useFormStore();
   const [attachment, setAttachment] = useState(null);
   const [secondAttachment, setSecondAttachment] = useState(null);
+  const [directorEmail, setDirectorEmail] = useState("");
   const [answers, setAnswers] = useState(
     questions.reduce((acc, question) => {
       acc[question.key] = "";
       return acc;
     }, {})
   );
+  const handleDirectorEmailChnage = (e) => {
+    setDirectorEmail(e.target.value);
+    console.log('director email',directorEmail);
+  };
 
   const handleCheckboxChange = (option) => {
-    // console.log("option", option)
     setPrintOptions({
       ...printOptions,
       [option.key]: !printOptions[option.key],
     });
-
-    // console.log(printOptions);
   };
 
   const handleAnswerChange = (question, answer) => {
@@ -51,30 +53,15 @@ function TempComponent({ directorFunc }) {
 
     //append file to formData...
     const formData = new FormData();
-    //
-    // // Convert file attachments to strings
-    // const file1Content = await fileToString(attachment);
-    // const file2Content = await fileToString(secondAttachment);
-
-    // // Append file contents as strings to formData
-    // formData.append("file1", file1Content);
-    // formData.append("file2", file2Content);
-
-    // formData.append("file", attachment,secondAttachment);
     formData.append("file1", attachment);
     formData.append("file2", secondAttachment);
-
-    // Update the Zustand store with formData directly
-    // useFormStore.getState().setFormData(formData);
-    setFormData(formData)
-    //....................................................
-
-    console.log("answersssss", printOptions);
+    formData.append("file3",directorEmail)
+    setFormData(formData.directorEmail);
+    // console.log('check Form data',formData);
     //loop through answers object and Append its keys and values to formData..
     for (const property in answers) {
       formData.append(property, answers[property]);
     }
-
     //loop through printOptions object and append its keys and values to formData..
     for (const property in printOptions) {
       formData.append(property, printOptions[property]);
@@ -86,7 +73,7 @@ function TempComponent({ directorFunc }) {
       body: formData,
     });
     const ress = await res.json();
-    console.log("hhello from route hadnler", ress);
+    // console.log("hhello from route hadnler", ress);
   };
 
   const handleAttachmentChange = (e) => {
@@ -121,7 +108,9 @@ function TempComponent({ directorFunc }) {
         reader.readAsText(file); // Read the file as text
       });
     }
-    useEffect(()=>{console.log('zustand data',formData);},[formData])
+    useEffect(() => {
+      console.log("zustand data", formData);
+    }, [formData]);
   }
 
   return (
@@ -149,17 +138,33 @@ function TempComponent({ directorFunc }) {
             {questions.map((question) => (
               <div key={question.key} className="text-input">
                 <label htmlFor={question.key}>{question.description}</label>
-                <br />
-                {question.description === "Any other (Please Specify)" ? (
-                  <textarea
-                    id={question.key}
-                    value={answers[question.key]}
-                    onChange={(e) =>
-                      handleAnswerChange(question, e.target.value)
-                    }
-                    rows="4"
+                <div>
+                {question.key === "directorEmail" ? (
+                  <input
+                
+                    type="email"
+                    value={directorEmail}
+                    onChange={handleDirectorEmailChnage}
+                    required
                   />
                 ) : (
+                  // <input
+                  // type="text"
+                  // value={answers[question.key]}
+                  // onChange={(e) => handleAnswerChange(question, e.target.value)}
+                  // required
+                  // />}
+                  // <br />
+                  // {question.description === "Any other (Please Specify)" ? (
+                  //   <textarea
+                  //     id={question.key}
+                  //     value={answers[question.key]}
+                  //     onChange={(e) =>
+                  //       handleAnswerChange(question, e.target.value)
+                  //     }
+                  //     rows="4"
+                  //   />
+                  // ) :
                   <input
                     // className='questionInput'
                     type="text"
@@ -171,6 +176,7 @@ function TempComponent({ directorFunc }) {
                     required
                   />
                 )}
+              </div>
               </div>
             ))}
             <div className="attachment-section">

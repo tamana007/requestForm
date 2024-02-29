@@ -3,6 +3,7 @@ const nodemailer = require("nodemailer");
 const mimeTypes = require("mime-types");
 import { connectToDatabase } from "@/db/db";
 import User from "@/db/model/User";
+import MarketingRequestForm from "@/components/MarketingRequestForm";
 
 export async function POST(request, res) {
   await connectToDatabase();
@@ -10,9 +11,16 @@ export async function POST(request, res) {
 
   const formData = await request.formData();
   const signature = formData.get("signature");
+  // const directorEmail = formData.get("directEmail");
+  
   const url = new URL(request.url);
   const id = url.searchParams.get("id");
+  const accountEmail=url.searchParams.get("email")
   // console.log('id from send signatre to email route --------------',id);
+  console.log(
+    "Account email from formData received In Director Route------------------",
+    accountEmail
+  );
 
   const getForm = await User.findOne({ _id: id });
   // console.log('Form Received*****************************',getForm);
@@ -42,9 +50,12 @@ export async function POST(request, res) {
   // Construct the email
   const mailOptions = {
     from: "tamana.efatwira1@gmail.com",
-    to: "tamana.efatwira2@gmail.com",
+    // to: "tamana.efatwira2@gmail.com",
+    to: accountEmail,
     subject: "Director Signature",
-    html: `<p>this is you id ${id}
+    html: `
+    <div className="form-container">
+    // <p>this is you id ${id}
       
       
       <div className="checkboxes">
@@ -263,7 +274,7 @@ export async function POST(request, res) {
       
       
       
-      
+      </div>
       
       `,
     // html: `<p>Director Signature:</p><img src="${signature}" alt="Director Signature"/>`,
@@ -284,9 +295,9 @@ export async function POST(request, res) {
     Response.status(200).json({ message: "Email sent successfully!" });
   } catch (error) {
     console.error("Error sending email:", error);
-    Response
-      .status(500)
-      .json({ error: "An error occurred while sending the email." });
+    Response.status(500).json({
+      error: "An error occurred while sending the email.",
+    });
   }
 
   return Response.status(200).send(buffer);

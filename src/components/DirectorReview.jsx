@@ -12,7 +12,9 @@ function DirectorReview() {
   const searchParams = useSearchParams()
   const search = searchParams.get('directorEmail')
   const id = searchParams.get('id')
+  const directorEmail=searchParams.get('directorEmail');
   console.log("params", search, id)
+  console.log('cHECK DIRECTOR EMAIL FOR ACCOUNT',directorEmail);
 
 //SaveSignature API
 
@@ -33,7 +35,7 @@ function DirectorReview() {
     console.log(typeof formData);
     
     try {
-      const response = await fetch(`/api/saveSignature?id=${id}`, {
+      const response = await fetch(`/api/saveSignature?id=${id}?directorEmail=${directorEmail}`, {
         method: 'POST',
         body: formData,
       });
