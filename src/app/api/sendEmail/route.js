@@ -12,21 +12,30 @@ export async function POST(request, res) {
   const formData = await request.formData();
   const signature = formData.get("signature");
   // const directorEmail = formData.get("directEmail");
-  
+
   const url = new URL(request.url);
   const id = url.searchParams.get("id");
-  const accountEmail=url.searchParams.get("dir")
-  console.log('id from send signatre to email route --------------$$$$$$$$',id);
+  const accountEmail = url.searchParams.get("dir");
+  console.log(
+    "id from send signatre to email route --------------$$$$$$$$",
+    id
+  );
   console.log(
     "Account email from formData received In Director Route--------------------------------------------------------------------------",
     accountEmail
   );
-// console.log('Check formdata0000000000000000000000000000000',formData);
+  // console.log('Check formdata0000000000000000000000000000000',formData);
   const getForm = await User.findOne({ _id: id });
   // console.log('Form Received*****************************',getForm);
 
   let arrayBuffer = await signature.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
+
+  // Convert the buffer to a base64 encoded string
+  // const base64String = buffer.toString("base64");
+  // const imgforEmail = "data:image/png;base64," + base64String
+  // console.log("base6444444444444444444444444", imgforEmail)
+
 
   //Find the type of file... such as pdf, doc, jpeg, png...
   const mimeType =
@@ -53,11 +62,7 @@ export async function POST(request, res) {
     // to: "tamana.efatwira2@gmail.com",
     to: accountEmail,
     subject: "Director Signature",
-    html: `
-    <div className="form-container">
-    // <p>this is you id ${id}
-      
-      
+    html: `      
       <div className="checkboxes">
       <label htmlFor="data1">
         <input
@@ -269,11 +274,10 @@ export async function POST(request, res) {
        
       </div>
       
-      
-      
-      
-      
-      
+      <br />
+
+      <img style="width:250px;" src="cid:${base64String}" alt="signature"/>
+
       </div>
       
       `,
@@ -284,6 +288,7 @@ export async function POST(request, res) {
         content: buffer,
         encoding: "base64", // Set the encoding to base64
         contentType: mimeType,
+        cid: imgforEmail,
       },
     ],
   };
@@ -292,13 +297,11 @@ export async function POST(request, res) {
     // Send the email
     const info = await transporter.sendMail(mailOptions);
     console.log("Email sent:", info.response);
-    Response.status(200).json({ message: "Email sent successfully!" });
+    return Response.json({ message: "Email sent successfully!" });
   } catch (error) {
     console.error("Error sending email:", error);
-    Response.status(500).json({
+    return Response.json({
       error: "An error occurred while sending the email.",
     });
   }
-
-  return Response.status(200).send(buffer);
 }

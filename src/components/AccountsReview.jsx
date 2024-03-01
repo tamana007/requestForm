@@ -3,6 +3,10 @@ import React, { useState, useRef, useEffect } from "react";
 import SignatureCanvas from "react-signature-canvas";
 import styles from "../Style/DirectorReview.module.css";
 import { useSearchParams } from "next/navigation";
+import { FaHandPointDown } from 'react-icons/fa';
+import { FaSave } from 'react-icons/fa';
+import { FaPaperPlane } from 'react-icons/fa';
+import { FaPaperclip } from 'react-icons/fa';
 
 function AccountsReview() {
   const [signatureImage, setSignatureImage] = useState({});
@@ -157,9 +161,14 @@ function AccountsReview() {
   return (
     <div className={styles.centered}>
       <h1 className={styles.title}>Account's Review Page</h1>
+      <p className={styles.subtitle}style={{ marginBottom: '10px' }}>
+      Please Sign at right center above the line 
+        <FaHandPointDown style={{ verticalAlign: 'middle', marginLeft: '5px' }} size={30} />
+        using mouse curser 
+      </p>
       {/* <h2>{attachment.approvedAmount}</h2> */}
       <div>
-        <label>Account's Signature:</label>
+        <label className={styles.directorSignature}>Account's Signature:</label>
         <SignatureCanvas
           ref={signatureCanvasRef}
           canvasProps={{
@@ -169,22 +178,22 @@ function AccountsReview() {
           }}
         />
       </div>
-      <hr />
-      <button onClick={saveAcountSignature}>save Signature</button>
-      <button onClick={handleSendEmail}>Send to Communication</button>
-      <button
+      <hr className={styles.signatureLine} />
+      <button className={styles.saveSignaturebtn} onClick={saveAcountSignature}>save Signature</button>
+      <button className={styles.sendSignaturebtn} onClick={handleSendEmail}>Send to Communication</button>
+      <button className={styles.saveSignaturebtn}
         onClick={() => {
           handleButtonClick(viewUser.attachement, viewUser.attachementMimeType);
         }}
       >
-        Check first Attachment
+        Check first Attachment  <FaPaperclip className="attach-icon" />
       </button>
-      <button
+      <button className={styles.sendSignaturebtn}
         onClick={() => {
-          handleButtonClick(viewUser.secondAttachement, viewUser.attachementMimeType);
+          handleButtonClick(viewUser.secondAttachement, viewUser.secondAttachementMimeType);
         }}
       >
-        Check second Attachment
+        Check second Attachment  <FaPaperclip className="attach-icon" />
       </button>
 
       {/* {signatureImage && <img src={signatureImage} />} */}

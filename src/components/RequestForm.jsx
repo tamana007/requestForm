@@ -6,6 +6,7 @@ import Link from "next/link";
 import DirectorReview from "./DirectorReview";
 import connectToDatabase from "@/db/db";
 import useFormStore from "@/utils/store"; // Import the Zustand store
+import { FaPaperPlane } from "react-icons/fa";
 
 function TempComponent({ directorFunc }) {
   const [printOptions, setPrintOptions] = useState(
@@ -20,6 +21,7 @@ function TempComponent({ directorFunc }) {
   const [attachment, setAttachment] = useState(null);
   const [secondAttachment, setSecondAttachment] = useState(null);
   const [directorEmail, setDirectorEmail] = useState("");
+  const [anyOther, setAnyOther] = useState("");
   const [answers, setAnswers] = useState(
     questions.reduce((acc, question) => {
       acc[question.key] = "";
@@ -28,7 +30,7 @@ function TempComponent({ directorFunc }) {
   );
   const handleDirectorEmailChnage = (e) => {
     setDirectorEmail(e.target.value);
-    console.log('director email',directorEmail);
+    console.log("director email", directorEmail);
   };
 
   const handleCheckboxChange = (option) => {
@@ -55,18 +57,23 @@ function TempComponent({ directorFunc }) {
     const formData = new FormData();
     formData.append("file1", attachment);
     formData.append("file2", secondAttachment);
-    formData.append("file3",directorEmail)
-    setFormData(formData.directorEmail);
+    formData.append("directorEmail", directorEmail);
+    formData.append("anyOtherItem", anyOther);
+
     // console.log('check Form data',formData);
     //loop through answers object and Append its keys and values to formData..
-    for (const property in answers) {
-      formData.append(property, answers[property]);
-    }
+
     //loop through printOptions object and append its keys and values to formData..
     for (const property in printOptions) {
       formData.append(property, printOptions[property]);
     }
+
+    for (const property in answers) {
+      formData.append(property, answers[property]);
+    }
+
     console.log("Form Data see", formData);
+    setFormData(formData.directorEmail);
 
     const res = await fetch("/api/submit-form", {
       method: "POST",
@@ -116,67 +123,82 @@ function TempComponent({ directorFunc }) {
   return (
     <div className="form-container">
       {/* <Logo /> */}
-      <h1>Marketing Request Form</h1>
-      <h2>All requests need to be submitted at least one week in advance</h2>
+      <h1 className="title">Marketing Request Form</h1>
+      <h2 className="subtitle">
+        All requests need to be submitted at least one week in advance
+      </h2>
 
-      <form onSubmit={handleSubmit} className="request-form">
+      <form className="form-request" onSubmit={handleSubmit}>
         <div className="checkbox-group">
-          <label>What do you want to get printed?</label>
-          <br />
+          <label style={{ marginBottom: "15px" }}>
+            What do you want to get printed?
+          </label>
           {options.map((option) => (
-            <div key={option.key} className="checkbox-item">
-              <input
-                type="checkbox"
-                id={option}
-                checked={printOptions[option.key]}
-                onChange={() => handleCheckboxChange(option)}
-              />
-              <label htmlFor={option}>{option.description}</label>
-            </div>
+            <>
+              <div key={option.key} className="checkbox-item">
+                <input
+                  type="checkbox"
+                  id={option.key}
+                  checked={printOptions[option.key]}
+                  onChange={() => handleCheckboxChange(option)}
+                />
+                <label htmlFor={option.key}>{option.description}</label>
+              </div>
+
+              {option.key == "anyOther" && printOptions["anyOther"] == true && (
+                <div>
+                  <input
+                    type="text"
+                    value={anyOther}
+                    onChange={(e) => setAnyOther(e.target.value)}
+                  />
+                </div>
+              )}
+            </>
           ))}
+
           <div className="questions-section">
             {questions.map((question) => (
               <div key={question.key} className="text-input">
                 <label htmlFor={question.key}>{question.description}</label>
                 <div>
-                {question.key === "directorEmail" ? (
-                  <input
-                
-                    type="email"
-                    value={directorEmail}
-                    onChange={handleDirectorEmailChnage}
-                    required
-                  />
-                ) : (
-                  // <input
-                  // type="text"
-                  // value={answers[question.key]}
-                  // onChange={(e) => handleAnswerChange(question, e.target.value)}
-                  // required
-                  // />}
-                  // <br />
-                  // {question.description === "Any other (Please Specify)" ? (
-                  //   <textarea
-                  //     id={question.key}
-                  //     value={answers[question.key]}
-                  //     onChange={(e) =>
-                  //       handleAnswerChange(question, e.target.value)
-                  //     }
-                  //     rows="4"
-                  //   />
-                  // ) :
-                  <input
-                    // className='questionInput'
-                    type="text"
-                    // id={question}
-                    value={answers[question.key]}
-                    onChange={(e) =>
-                      handleAnswerChange(question, e.target.value)
-                    }
-                    required
-                  />
-                )}
-              </div>
+                  {question.key === "directorEmail" ? (
+                    <input
+                      type="email"
+                      value={directorEmail}
+                      onChange={handleDirectorEmailChnage}
+                      required
+                    />
+                  ) : (
+                    // <input
+                    // type="text"
+                    // value={answers[question.key]}
+                    // onChange={(e) => handleAnswerChange(question, e.target.value)}
+                    // required
+                    // />}
+                    // <br />
+                    // {question.description === "Any other (Please Specify)" ? (
+                    //   <textarea
+                    //     id={question.key}
+                    //     value={answers[question.key]}
+                    //     onChange={(e) =>
+                    //       handleAnswerChange(question, e.target.value)
+                    //     }
+                    //     rows="4"
+                    //   />
+                    // ) :
+                    <input
+                      // className='questionInput'
+                      type="text"
+                      // id={question}
+                      value={answers[question.key]}
+                      onChange={(e) =>
+                        handleAnswerChange(question, e.target.value)
+                      }
+                      required
+                    />
+                  )}
+                </div>
               </div>
             ))}
             <div className="attachment-section">
@@ -211,22 +233,23 @@ function TempComponent({ directorFunc }) {
           </div>
         </div>
 
-        <div className="submit-container">
-          {/* <Link href="/director-review"> */}
-          <button type="submit" className="success">
-            Send to Director's Approval
-          </button>
-          {/* </Link> */}
-          <Link href="/account-review">
-            <button type="submit" className="account">
-              Send to Account's Approval
-            </button>
-          </Link>
+        {/* <div className="sendSignaturebtn"> */}
+        {/* <Link href="/director-review"> */}
+        <button type="submit" className="sendSignaturebtn">
+          Send to Director's Approval{" "}
+          <FaPaperPlane style={{ marginLeft: "5px" }}></FaPaperPlane>
+        </button>
+        {/* </Link> */}
+        {/* <Link href="/account-review"> */}
+        {/* <button type="submit" className="account"> */}
+        {/* Send to Account's Approval */}
+        {/* </button> */}
+        {/* </Link> */}
 
-          <button type="submit" className="vendor">
-            Submit to Vendor
-          </button>
-        </div>
+        {/* <button type="submit" className="vendor"> */}
+        {/* Submit to Vendor */}
+        {/* </button> */}
+        {/* </div> */}
       </form>
     </div>
   );

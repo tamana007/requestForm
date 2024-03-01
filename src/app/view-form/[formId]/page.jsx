@@ -6,6 +6,10 @@ import html2pdf from "html2pdf.js";
 import Logo from "@/components/Logo";
 import Print from "@/components/print";
 import styles from "../../../Style/tableData.module.css";
+// import styles from '../Style/DirectorReview.module.css'; // Create a CSS file for styling
+import { FaSave } from 'react-icons/fa';
+import { FaPaperPlane } from 'react-icons/fa';
+import { FaPaperclip } from 'react-icons/fa';
 
 function Page({ params }) {
   const id = params.formId;
@@ -579,8 +583,8 @@ function Page({ params }) {
           {/* <button type="submit">Submit</button> */}
           <hr />
           <div className={styles.btncontainer}>
-            <button onClick={() => exportAsPDF()}>Export as PDF</button>
-            <button
+            <button className={styles.sendSignaturebtn} onClick={() => exportAsPDF()}>Export as PDF</button>
+            <button className={styles.saveSignaturebtn}
               onClick={() =>
                 handleButtonClick(
                   viewUser.attachement,
@@ -588,9 +592,9 @@ function Page({ params }) {
                 )
               }
             >
-              click to see first attachments:
+              click to see first attachments: <FaPaperclip className="attach-icon" />
             </button>
-            <button
+            <button className={styles.sendSignaturebtn}
               onClick={() =>
                 handleButtonClick(
                   viewUser.secondAttachement,
@@ -598,7 +602,7 @@ function Page({ params }) {
                 )
               }
             >
-              click to see second attachments:
+              click to see second attachments:<FaPaperclip className="attach-icon" />
             </button>
           </div>
         </div>

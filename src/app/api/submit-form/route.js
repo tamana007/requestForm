@@ -1,6 +1,8 @@
 const fs = require("fs");
 const PizZip = require("pizzip");
 const Docxtemplater = require("docxtemplater");
+const { reorderObject } = require("@/data/sortObj");
+
 //.................................
 const nodemailer = require("nodemailer");
 const mimeTypes = require("mime-types");
@@ -14,19 +16,20 @@ export async function POST(request) {
   const formData = await request.formData();
   const file1 = formData.get("file1");
   const file2 = formData.get("file2");
-  const directorEmail=formData.get("file3")
+  const directorEmail = formData.get("directorEmail");
+
   formData.delete("file1");
   formData.delete("file2");
   formData.delete("directorEmail");
+
   let arrayBuffer1 = await file1.arrayBuffer();
   let arrayBuffer2 = await file2.arrayBuffer();
-  
+
   const buffer1 = Buffer.from(arrayBuffer1);
   const buffer2 = Buffer.from(arrayBuffer2);
   // Convert the Buffer to a base64 encoded string
   const file1base64String = buffer1.toString("base64");
   const file2base64String = buffer2.toString("base64");
-
 
   //Find the type of file... such as pdf, doc, jpeg, png...
   const mimeType = mimeTypes.lookup(file1.name) || "application/octet-stream"; // Default to binary if MIME type is not found
@@ -55,12 +58,14 @@ export async function POST(request) {
     }
   });
 
-  console.log("formDataObj", formDataObject);
+  const plainFormDataObject = reorderObject(formDataObject);
+
+  console.log("formDataObj", plainFormDataObject);
   formDataObject.attachementMimeType = mimeType;
   formDataObject.secondAttachementMimeType = mimeType2;
 
-  console.log("mimeetype", mimeType)
-  console.log("mimeetype", mimeType2)
+  console.log("mimeetype", mimeType);
+  console.log("mimeetype", mimeType2);
   formDataObject.attachement = file1base64String;
   formDataObject.secondAttachement = file2base64String;
 
@@ -89,21 +94,21 @@ export async function POST(request) {
   let htmlContent = "<h1>Marketing Request Form</h1>";
   htmlContent +=
     "<h2>All requests need to be submitted at least one-week in advance</h2>"; // Added h2 tag
-  htmlContent += "<ul>"; // Use <ul> for an unordered list
-  Object.entries(formDataObject).forEach(([question, answer]) => {
-   
+  htmlContent += "<ul style='list-style-type: none; padding: 0;'>";
+  Object.entries(plainFormDataObject).forEach(([question, answer]) => {
     if (typeof answer === "boolean") {
       // If the answer is a boolean, add it to booleanQuestionsHtml
-      htmlContent += `<li><strong>${question}:</strong> <input type="checkbox" ${
+      htmlContent += `<li style='margin-bottom: 10px;'><strong>${question}:</strong> <input type="checkbox" style='margin-left: 5px;' ${
         answer ? "checked" : ""
       } disabled></li>`;
-    } if (question !== "attachement" && question !=="secondAttachement") {
-      // If the answer is not a boolean, add it to otherQuestionsHtml
-      htmlContent += `<li><strong>${question}:</strong> <div style="display: inline-block; border: 1px solid #ccc; padding: 5px; margin-left: 10px;">${answer}</div></li>`;
     }
-    else{
-      htmlContent += `<li><strong>${question}:</strong> <div style="display: inline-block; border: 1px solid #ccc; padding: 5px; margin-left: 10px;">"Data Attached"</div></li>`;
-
+    if (
+      question !== "attachement" &&
+      question !== "secondAttachement" &&
+      typeof answer !== "boolean"
+    ) {
+      // If the answer is not a boolean, add it to otherQuestionsHtml
+      htmlContent += `<li style='margin-bottom: 10px;'><strong>${question}:</strong> <div style="display: block;">${answer}</div></li>`;
     }
   });
   htmlContent += "</ul>"; // Close the unordered list
@@ -112,7 +117,7 @@ export async function POST(request) {
   const mailOptions = {
     from: "tamana.efatwira1@gmail.com",
     // to: "tamana.efatwira2@gmail.com",
-    to:directorEmail,
+    to: directorEmail,
 
     subject: "Marketing E-request Form...",
     text: "Please find the attached file.",

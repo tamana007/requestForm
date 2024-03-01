@@ -8,6 +8,8 @@ import { options, questions } from "../data/options"; // Import questions array
 import Link from 'next/link';
 
 import "../Style/marketingRequestForm.css"; // Corrected import path
+// import styles from '../Style/DirectorReview.module.css'; // Create a CSS file for styling
+
 
 const MarketingRequestForm = () => {
   const [printOptions, setPrintOptions] = useState(
@@ -57,7 +59,7 @@ const MarketingRequestForm = () => {
   return (
     <div className="form-container">
       {/* <Logo /> */}
-      <h1>Marketing Request Form</h1>
+      <h1 className="title">Marketing Request Form</h1>
       <h2>All requests need to be submitted at least one week in advance</h2>
 
       <form onSubmit={handleSubmit} className="request-form">
@@ -119,9 +121,9 @@ const MarketingRequestForm = () => {
         <div className="submit-container">
           
           <button type="submit" className="success">Send to Director's Approval</button>
-          <button type="submit" className="account">Send to Account's Approval</button>
+          {/* <button type="submit" className="account">Send to Account's Approval</button>
           
-          <button type="submit" className="vendor">Submit to Vendor</button>
+          <button type="submit" className="vendor">Submit to Vendor</button> */}
           
           {/* <link type="btn" >click</link> */}          
         </div>
