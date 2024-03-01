@@ -220,38 +220,38 @@ function Page({ params }) {
               </p>
               {/* Add more questions and answers as needed */}
               <p>
-                Question 2: Director Email Address:
+                Question 3: Director Email Address:
                 <br />
                 Answer: {viewUser.directorEmail}
                 <p type="text" name="answer2" />
               </p>
               <p>
-                Question 2: Please Specify the Size and Quantity (If relevant)
+                Question 4: Please Specify the Size and Quantity (If relevant)
                 <br />
                 Answer: {viewUser.size}
                 <p type="text" name="answer2" />
               </p>
               <p>
-                Question 2: Please Write any side-note for Social Media
+                Question 5: Please Write any side-note for Social Media
                 Post,Flyer/Brochure/Swag Item (If relevant)
                 <br />
                 Answer: {viewUser.sideNote}
                 <p type="text" name="answer2" />
               </p>
               <p>
-                Question 2: Amount Approved?
+                Question 6: Amount Approved?
                 <br />
                 Answer: {viewUser.approvedAmount}
                 <p type="text" name="answer2" />
               </p>
               <p>
-                Question 2: Budget approval by the Accounts Department?
+                Question 7: Budget approval by the Accounts Department?
                 <br />
                 Answer: {viewUser.budgetApprovalByAccount}
                 <p type="text" name="answer2" />
               </p>
               <p>
-                Question 2: Invoince to be made under which Name/program ?
+                Question 8: Invoince to be made under which Name/program ?
                 <br />
                 Answer: {viewUser.invoiceTobeMade}
                 <p type="text" name="answer2" />

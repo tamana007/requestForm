@@ -14,6 +14,9 @@ import {
 import Logo from "@/components/Logo";
 import styles from "@/Style/tableData.module.css";
 import Link from "next/link";
+import { FaEye } from 'react-icons/fa';
+// import { AiOutlineDelete } from 'react-icons/ai';
+import { FaTrashAlt } from 'react-icons/fa';
 
 function TableComp({ handleView }) {
   const [forms, setForms] = useState([]);
@@ -96,7 +99,7 @@ function TableComp({ handleView }) {
               <TableHead>
                 <TableRow className={styles["customTableHeader"]}>
                   <TableCell>View</TableCell>
-                  <TableCell>Eddit</TableCell>
+                  {/* <TableCell>Eddit</TableCell> */}
                   <TableCell>Delete</TableCell>
                   <TableCell>ID</TableCell>
                   <TableCell>Social Media Ad</TableCell>
@@ -131,12 +134,12 @@ function TableComp({ handleView }) {
                         variant="outlined"
                         // onClick={() => handleView(form._id)}
                       >
-                        View
+                           <FaEye />
                       </Link>
                       {/* Buttons for view, edit, and delete */}
                     </TableCell>
 
-                    <TableCell>
+                    {/* <TableCell>
                       <Button
                         className={styles["customButton2"]}
                         variant="outlined"
@@ -144,14 +147,14 @@ function TableComp({ handleView }) {
                       >
                         Edit
                       </Button>
-                    </TableCell>
+                    </TableCell> */}
                     <TableCell>
                       <Button
                         className={styles["customButton3"]}
                         variant="outlined"
                         onClick={() => handleDelete(form._id)}
                       >
-                        Delete
+                          <FaTrashAlt />
                       </Button>
                     </TableCell>
                     <TableCell>{form?._id.toString()}</TableCell>
@@ -166,14 +169,14 @@ function TableComp({ handleView }) {
                     </TableCell>
                     <TableCell>{form?.placard?.toString()}</TableCell>
                     <TableCell>
-                      {form?.newsPaperMagazineAdOutdoor?.toString()}
+                      {form?.tableTopnewsPaper?.toString()}
                     </TableCell>
                     <TableCell>{form?.marketing?.toString()}</TableCell>
                     <TableCell>{form?.anyOther?.toString()}</TableCell>
                     <TableCell>{form?.programName?.toString()}</TableCell>
-                    <TableCell>{form?.name?.toString()}</TableCell>
+                    <TableCell>{form?.YourName?.toString()}</TableCell>
                     <TableCell>
-                      {form?.directorEmailAddress?.toString()}
+                      {form?.directorEmail?.toString()}
                     </TableCell>
                     <TableCell>{form?.size?.toString()}</TableCell>
                     <TableCell>{form?.sideNote?.toString()}</TableCell>

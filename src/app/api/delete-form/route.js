@@ -23,12 +23,11 @@ export  async function DELETE(req, res) {
   console.log('id from delete route',id);
 
    // Show a confirmation dialog to the user
-   const confirmDelete = confirm('Are you sure you want to delete this form?');
+  //  const confirmDelete = confirm('Are you sure you want to delete this form?');
 
-   if (confirmDelete){
-    const deleteForm = await User.findByIdAndDelete(id);
-
-   }
+  const deleteForm = await User.findByIdAndDelete(id);
+  // const deleteForm = await User.deleteMany();
+  if (confirmDelete){}
   
     // Perform deletion operation using the ID
     if(!deleteForm){

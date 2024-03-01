@@ -52,7 +52,7 @@ const questions = [
   },
   {
     description: 'Your Name:',
-    key: 'Your Name:'
+    key: 'YourName:'
   },
   {
     description: 'Director Email Address:',

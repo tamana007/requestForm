@@ -134,8 +134,8 @@ function TempComponent({ directorFunc }) {
             What do you want to get printed?
           </label>
           {options.map((option) => (
-            <>
-              <div key={option.key} className="checkbox-item">
+            <div key={option.key}>
+              <div  className="checkbox-item">
                 <input
                   type="checkbox"
                   id={option.key}
@@ -154,7 +154,7 @@ function TempComponent({ directorFunc }) {
                   />
                 </div>
               )}
-            </>
+            </div>
           ))}
 
           <div className="questions-section">

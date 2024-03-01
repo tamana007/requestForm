@@ -31,9 +31,13 @@ export async function POST(request, res) {
   let arrayBuffer = await signature.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
 
+  console.log("getFormProperties....", getForm.socialMediaAd, getForm.bussinessCard)
+  console.log("getForm", typeof getForm)
+
+
   // Convert the buffer to a base64 encoded string
-  // const base64String = buffer.toString("base64");
-  // const imgforEmail = "data:image/png;base64," + base64String
+  const base64String = buffer.toString("base64");
+  const imgforEmail = "data:image/png;base64," + base64String
   // console.log("base6444444444444444444444444", imgforEmail)
 
 
@@ -66,24 +70,23 @@ export async function POST(request, res) {
       <div className="checkboxes">
       <label htmlFor="data1">
         <input
-          disabled
-          readOnly
           type="checkbox"
           id="data1"
           name="data1"
-          checked=${getForm.socialMediaAd}
+          disabled
+          ${getForm.socialMediaAd? 'checked' : '' }
         />
         Social Media Ad
       </label>
       <div>
         <label htmlFor="data2">
           <input
-            disabled
-            readOnly
             type="checkbox"
             id="data2"
             name="data2"
-            checked=${getForm.specialMerchandise}
+            disabled
+          ${getForm.bussinessCard? 'checked' : '' }
+
 
           />
           Bussiness Card
@@ -97,7 +100,7 @@ export async function POST(request, res) {
             type="checkbox"
             id="data2"
             name="data2"
-            checked=${getForm.specialMerchandise}
+          ${getForm.flyer? 'checked' : '' }
 
           />
           Flyer
@@ -111,7 +114,7 @@ export async function POST(request, res) {
             type="checkbox"
             id="data2"
             name="data2"
-            checked=${getForm.specialMerchandise}
+          ${getForm.brochure? 'checked' : '' }
 
           />
           Brochure
@@ -125,7 +128,7 @@ export async function POST(request, res) {
             type="checkbox"
             id="data2"
             name="data2"
-            checked=${getForm.specialMerchandise}
+          ${getForm.pullupBanner? 'checked' : '' }
 
           />
           Pullup Banner
@@ -139,7 +142,8 @@ export async function POST(request, res) {
             type="checkbox"
             id="data2"
             name="data2"
-            checked=${getForm.specialMerchandise}
+          ${getForm.tableTopBanner? 'checked' : '' }
+            
 
           />
           Table top Banner
@@ -153,7 +157,7 @@ export async function POST(request, res) {
             type="checkbox"
             id="data2"
             name="data2"
-            checked=${getForm.specialMerchandise}
+          ${getForm.specialMerchandise? 'checked' : '' }
           />
           Special Merchandise/Swag item
         </label>
@@ -166,12 +170,24 @@ export async function POST(request, res) {
             type="checkbox"
             id="data2"
             name="data2"
-            checked=${getForm.specialMerchandise}
-
+            ${getForm.Placard? 'checked' : '' }
           />
           Placard
         </label>
       </div>
+      <div>
+      <label htmlFor="data2">
+        <input
+          disabled
+          readOnly
+          type="checkbox"
+          id="data2"
+          name="data2"
+          ${getForm.tableTopnewsPaper? 'checked' : '' }
+        />
+        Marketing
+      </label>
+    </div>
       <div>
         <label htmlFor="data2">
           <input
@@ -180,8 +196,7 @@ export async function POST(request, res) {
             type="checkbox"
             id="data2"
             name="data2"
-            checked=${getForm.specialMerchandise}
-
+            ${getForm.marketing? 'checked' : '' }
           />
           Marketing
         </label>
@@ -194,23 +209,12 @@ export async function POST(request, res) {
             type="checkbox"
             id="data2"
             name="data2"
-            checked=${getForm.specialMerchandise}
-
+            ${getForm.anyOther? 'checked' : '' }
           />
           Any other (Please Specify)
         </label>
       </div>
-      <div>
-        <label htmlFor="data2">
-          <input
-            disabled
-            readOnly
-            type="checkbox"
-            id="data2"
-            name="data2"
-            checked=${getForm.specialMerchandise}
-
-          />
+     
           What is your program name?
         </label>
       </div>
@@ -230,38 +234,38 @@ export async function POST(request, res) {
       </p>
     
       <p>
-        Question 2: Director Email Address:
+        Question 3: Director Email Address:
         <br />
         Answer: ${getForm.directorEmail}
         <p type="text" name="answer2" />
       </p>
       <p>
-        Question 2: Please Specify the Size and Quantity (If relevant)
+        Question 4: Please Specify the Size and Quantity (If relevant)
         <br />
         Answer: ${getForm.size}
         <p type="text" name="answer2" />
       </p>
       <p>
-        Question 2: Please Write any side-note for Social Media
+        Question 5: Please Write any side-note for Social Media
         Post,Flyer/Brochure/Swag Item (If relevant)
         <br />
         Answer: ${getForm.sideNote}
         <p type="text" name="answer2" />
       </p>
       <p>
-        Question 2: Amount Approved?
+        Question 6: Amount Approved?
         <br />
         Answer: ${getForm.approvedAmount}
         <p type="text" name="answer2" />
       </p>
       <p>
-        Question 2: Budget approval by the Accounts Department?
+        Question 7: Budget approval by the Accounts Department?
         <br />
         Answer: ${getForm.budgetApprovalByAccount}
         <p type="text" name="answer2" />
       </p>
       <p>
-        Question 2: Invoince to be made under which Name/program ?
+        Question 8: Invoince to be made under which Name/program ?
         <br />
         Answer: ${getForm.invoiceTobeMade}
         <p type="text" name="answer2" />

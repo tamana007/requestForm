@@ -1,7 +1,7 @@
 .thead{
   display: block;
   width: 100%;
-  background-color: brown;
+  background-color: #bb0909;
 }
 .tbody{
   display: block;
@@ -27,6 +27,7 @@
 
 .customTableHeader:hover {
   background-color: orange; /* Secondary color on hover */
+  width: fit-content;
 }
 /* styles.css */
 
@@ -58,11 +59,11 @@
   background-color: #e61212; /* Primary color */
   border: none;
   border-radius: 5px;
-  padding: 8px 16px;
-  margin-right: 8px;
+  padding: auto auto;
+  /* margin-right: 8px; */
   cursor: pointer;
   transition: background-color 0.3s;
-  width: 45px;
+  width: fit-content
 
 }
 

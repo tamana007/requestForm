@@ -62,9 +62,9 @@ function AccountsReview() {
       setSecondAttachement((prev) => ({ ...prev, ...data.secondAttachement }));
       setViewUser((prev) => ({ ...prev, ...data.user }));
 
-      console.log("res from attachemnt", attachment);
-      const firstAttachment = attachment.attachement;
-      const secondAttachement = attachment.secondAttachement;
+      // console.log("res from attachemnt", attachment);
+      // const firstAttachment = attachment.attachement;
+      // const secondAttachement = attachment.secondAttachement;
       // console.log('first attachment',secondAttachement);
     };
     handleCheckAttachment();
@@ -149,12 +149,12 @@ function AccountsReview() {
       console.error("Error sending email:", error);
       alert("An error occurred while sending the email.");
       // If successful response, fetch the image buffer data
-      const imageData = await response.arrayBuffer();
-      const blob = new Blob([imageData]);
-      const imageUrl = URL.createObjectURL(blob);
+      // const imageData = await response.arrayBuffer();
+      // const blob = new Blob([imageData]);
+      // const imageUrl = URL.createObjectURL(blob);
 
-      // Set the image URL to state to display it
-      setSignatureImage(imageUrl);
+      // // Set the image URL to state to display it
+      // setSignatureImage(imageUrl);
     }
   };
 
