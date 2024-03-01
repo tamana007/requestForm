@@ -179,21 +179,21 @@ function AccountsReview() {
         />
       </div>
       <hr className={styles.signatureLine} />
-      <button className={styles.saveSignaturebtn} onClick={saveAcountSignature}>save Signature</button>
+      <button className={styles.saveSignaturebtn} onClick={saveAcountSignature}>Save Signature</button>
       <button className={styles.sendSignaturebtn} onClick={handleSendEmail}>Send to Communication</button>
       <button className={styles.saveSignaturebtn}
         onClick={() => {
           handleButtonClick(viewUser.attachement, viewUser.attachementMimeType);
         }}
       >
-        Check first Attachment  <FaPaperclip className="attach-icon" />
+        Check First Attachment  <FaPaperclip className="attach-icon" />
       </button>
       <button className={styles.sendSignaturebtn}
         onClick={() => {
           handleButtonClick(viewUser.secondAttachement, viewUser.secondAttachementMimeType);
         }}
       >
-        Check second Attachment  <FaPaperclip className="attach-icon" />
+        Check Second Attachment  <FaPaperclip className="attach-icon" />
       </button>
 
       {/* {signatureImage && <img src={signatureImage} />} */}

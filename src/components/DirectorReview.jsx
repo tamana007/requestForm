@@ -213,7 +213,7 @@ function DirectorReview() {
             );
           }}
         >
-          Check first Attachment <FaPaperclip className="attach-icon" />
+          Check First Attachment <FaPaperclip className="attach-icon" />
         </button>
         <button
           className={styles.sendSignaturebtn}
@@ -224,7 +224,7 @@ function DirectorReview() {
             );
           }}
         >
-          Check second Attachment <FaPaperclip className="attach-icon" />
+          Check Second Attachment <FaPaperclip className="attach-icon" />
         </button>
       </div>
     </div>
