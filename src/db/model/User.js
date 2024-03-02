@@ -48,10 +48,7 @@ const userSchema = new mongoose.Schema({
   anyOtherItem: String,
   // Add more properties as needed
   programName: String,
-  name: {
-    type: String,
-    //  required:true,
-  },
+  yourName:String,
   directorEmail: {
     type: String,
     require: true,

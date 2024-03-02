@@ -14,9 +14,9 @@ import {
 import Logo from "@/components/Logo";
 import styles from "@/Style/tableData.module.css";
 import Link from "next/link";
-import { FaEye } from 'react-icons/fa';
+import { FaEye } from "react-icons/fa";
 // import { AiOutlineDelete } from 'react-icons/ai';
-import { FaTrashAlt } from 'react-icons/fa';
+import { FaTrashAlt } from "react-icons/fa";
 
 function TableComp({ handleView }) {
   const [forms, setForms] = useState([]);
@@ -33,6 +33,7 @@ function TableComp({ handleView }) {
       } finally {
         setLoading(false);
       }
+      // console.log('form',forms);
     };
 
     fetchData();
@@ -54,23 +55,21 @@ function TableComp({ handleView }) {
     } catch (error) {
       console.log("error deleting", error);
     }
+    // console.log('form',forms);
   };
 
-
-  const handleEdit = async (id) => {
-    try {
-     
-        // Make DELETE request to delete the form with the specified ID
-        await fetch(`/api/edit-form?id=${id}`, {
-          method: "DELETE",
-        });
-        // Update state to remove the deleted form from the forms array
-        setForms(forms.filter((form) => form._id !== id));
-      
-    } catch (error) {
-      console.log("error deleting", error);
-    }
-  };
+  // const handleEdit = async (id) => {
+  //   try {
+  //     // Make DELETE request to delete the form with the specified ID
+  //     await fetch(`/api/edit-form?id=${id}`, {
+  //       method: "DELETE",
+  //     });
+  //     // Update state to remove the deleted form from the forms array
+  //     setForms(forms.filter((form) => form._id !== id));
+  //   } catch (error) {
+  //     console.log("error deleting", error);
+  //   }
+  // };
 
   return (
     <>
@@ -127,39 +126,26 @@ function TableComp({ handleView }) {
                 {forms.map((form) => (
                   <TableRow key={form._id}>
                     <TableCell>
-                      {/* ****************Here we define the route by using ${} ***********************/}
                       <Link
                         href={`/view-form/${form._id}`}
                         className={styles["customButton1"]}
                         variant="outlined"
-                        // onClick={() => handleView(form._id)}
                       >
-                           <FaEye />
+                        <FaEye />
                       </Link>
-                      {/* Buttons for view, edit, and delete */}
                     </TableCell>
-
-                    {/* <TableCell>
-                      <Button
-                        className={styles["customButton2"]}
-                        variant="outlined"
-                        onClick={() => handleEdit(form._id)}
-                      >
-                        Edit
-                      </Button>
-                    </TableCell> */}
                     <TableCell>
                       <Button
                         className={styles["customButton3"]}
                         variant="outlined"
                         onClick={() => handleDelete(form._id)}
                       >
-                          <FaTrashAlt />
+                        <FaTrashAlt />
                       </Button>
                     </TableCell>
                     <TableCell>{form?._id.toString()}</TableCell>
                     <TableCell>{form?.socialMediaAd?.toString()}</TableCell>
-                    <TableCell>{form?.businessCard?.toString()}</TableCell>
+                    <TableCell>{form?.bussinessCard?.toString()}</TableCell>
                     <TableCell>{form?.flyer?.toString()}</TableCell>
                     <TableCell>{form?.brochure?.toString()}</TableCell>
                     <TableCell>{form?.pullupBanner?.toString()}</TableCell>
@@ -168,16 +154,12 @@ function TableComp({ handleView }) {
                       {form?.specialMerchandise?.toString()}
                     </TableCell>
                     <TableCell>{form?.placard?.toString()}</TableCell>
-                    <TableCell>
-                      {form?.tableTopnewsPaper?.toString()}
-                    </TableCell>
+                    <TableCell>{form?.tableTopnewsPaper?.toString()}</TableCell>
                     <TableCell>{form?.marketing?.toString()}</TableCell>
                     <TableCell>{form?.anyOther?.toString()}</TableCell>
                     <TableCell>{form?.programName?.toString()}</TableCell>
-                    <TableCell>{form?.YourName?.toString()}</TableCell>
-                    <TableCell>
-                      {form?.directorEmail?.toString()}
-                    </TableCell>
+                    <TableCell>{form?.name?.toString()}</TableCell>
+                    <TableCell>{form?.directorEmail?.toString()}</TableCell>
                     <TableCell>{form?.size?.toString()}</TableCell>
                     <TableCell>{form?.sideNote?.toString()}</TableCell>
                     <TableCell>{form?.approvedAmount?.toString()}</TableCell>

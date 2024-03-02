@@ -10,9 +10,9 @@ function page() {
     setClickView(true);
     console.log("viewed",clickView);
   }
-  function handleEdit() {
-    console.log("editted");
-  }
+  // function handleEdit() {
+  //   console.log("editted");
+  // }
   function handleDelete() {
     console.log("deleted");
   }
@@ -21,7 +21,7 @@ function page() {
     <>
     {clickView?
     <ViewBtn/>
-    :  <TableComp handleView={handleView} handleEdit={handleEdit} handleDelete={handleDelete} />}
+    :  <TableComp handleView={handleView} handleDelete={handleDelete} />}
     
     </>
   )

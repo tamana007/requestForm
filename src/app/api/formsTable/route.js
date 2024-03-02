@@ -7,7 +7,9 @@ await connectToDatabase();
 
 try {
   const users=await User.find({});
-  // console.log('users here',users);
+
+
+
 return Response.json({users})
   
 } catch (error) {

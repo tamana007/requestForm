@@ -2,7 +2,7 @@ import { connectToDatabase } from "@/db/db";
 import User from "@/db/model/User";
 
 export async function POST(req, res) {
-  // console.log('Request object:', req);
+ 
   try {
     // Connect to the database
     await connectToDatabase();
@@ -18,12 +18,12 @@ export async function POST(req, res) {
     // Convert the Buffer to a base64 encoded string
     const base64String = buffer.toString('base64');
 
-    // console.log('base64String', base64String); // Output the base64 encoded string
+   
 
     //Tring to access id from the URL link
     const url = new URL(req.url);
     const id = url.searchParams.get("id");
-    console.log('check save signature.........',id);
+  
 
     if (!id) {
       return res.status(400).json({ error: "ID parameter is missing" });

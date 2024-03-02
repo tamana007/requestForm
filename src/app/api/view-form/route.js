@@ -11,7 +11,7 @@ export async function GET (request){
 
   try {
     const user =await User.findOne({_id:id});
-    // console.log('users here----------------------------------------',user);
+
   return Response.json({user})
     
   } catch (error) {

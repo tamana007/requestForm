@@ -20,7 +20,7 @@ export  async function DELETE(req, res) {
       
       const url=new URL(req.url);
   const id = url.searchParams.get("id");
-  console.log('id from delete route',id);
+
 
    // Show a confirmation dialog to the user
   //  const confirmDelete = confirm('Are you sure you want to delete this form?');
@@ -32,7 +32,7 @@ export  async function DELETE(req, res) {
     // Perform deletion operation using the ID
     if(!deleteForm){
       return Response.json({error:"form not found"})
-      console.log('form not found',id);
+    
     }
   
 

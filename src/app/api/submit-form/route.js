@@ -2,8 +2,6 @@ const fs = require("fs");
 const PizZip = require("pizzip");
 const Docxtemplater = require("docxtemplater");
 const { reorderObject } = require("@/data/sortObj");
-
-//.................................
 const nodemailer = require("nodemailer");
 const mimeTypes = require("mime-types");
 import { connectToDatabase } from "@/db/db";
@@ -17,6 +15,9 @@ export async function POST(request) {
   const file1 = formData.get("file1");
   const file2 = formData.get("file2");
   const directorEmail = formData.get("directorEmail");
+  // const yourName=formData.answer.get("yourName");
+  const yourName=formData.get("yourName");
+  console.log(formData,'----------------------------------------yourname');
 
   formData.delete("file1");
   formData.delete("file2");
@@ -60,14 +61,17 @@ export async function POST(request) {
 
   const plainFormDataObject = reorderObject(formDataObject);
 
-  console.log("formDataObj", plainFormDataObject);
+
   formDataObject.attachementMimeType = mimeType;
   formDataObject.secondAttachementMimeType = mimeType2;
 
-  console.log("mimeetype", mimeType);
-  console.log("mimeetype", mimeType2);
+
   formDataObject.attachement = file1base64String;
   formDataObject.secondAttachement = file2base64String;
+  formDataObject.directorEmail=directorEmail;
+  formDataObject.yourName=yourName;
+  // formDataObject.yourName=yourName;
+  // console.log('form data object',formDataObject);
 
   //DATABASE SETUP.....
   const res = await new User(formDataObject).save();

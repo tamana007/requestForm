@@ -1,0 +1,116 @@
+/* sendToVendorForm.module.css */
+.pageContainer {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100vh; /* Ensure full viewport height */
+  width: 100%;
+}
+.formcontainer {
+  margin-top: -10%;
+  display: grid;
+  justify-content: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  width: 40%;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* background-color: #007bff; */
+  
+    /* width: 40%; Set width to 40% of the container */
+    border: 2px solid orange; 
+    padding: 20px; /* Add some padding */
+  
+}
+.itemContainer{
+  justify-content: center;
+  align-items: center;
+  /* background-color: #007bff; */
+  /* width: 100%; */
+  display: flex;
+  flex-direction: column;
+  padding: 20px ;
+  width: 100%;
+  background: #fff;
+  /* border: 1px solid #cccccc;
+   */
+  border-radius: 18px ;
+  color:rgb(255, 0, 0)
+  
+}
+
+.formgroup {
+  margin-bottom: 20px; /* Add space between form groups */
+   /* margin-left: 50%;  */
+   width: 100%;
+   /* background-color: aqua; */
+   color: #0056b3;
+   
+  
+}
+
+
+
+.form-containerh2 {
+  text-align: center;
+  margin-bottom: 20px;
+  background-color: red;
+}
+
+.formgroup {
+  margin-bottom: 20px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  display: flex;
+}
+
+.formgrouplabel {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.formgroupinput[type="text"],
+.formgroupinput[type="email"],
+.formgrouptextarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.formgrouptextarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.formgroupinput[type="file"] {
+  /* Customize file input appearance if needed */
+}
+
+.formgroupbutton {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.formgroupbutton:hover {
+  background-color: #0056b3;
+}
+/* Adjust spacing between label and input */
+.formContainerlabel {
+  margin-bottom: 8px;
+  display: block;
+}
+.title {
+  /* margin-top: -30px; Adjust the value based on your preference */
+  color:chocolate;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+}
+
+
+

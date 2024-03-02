@@ -12,12 +12,12 @@ export async function POST (request, res) {
 
   const url=new URL(request.url);
   const email=url.searchParams.get("email");
-  console.log('email is coming from Account Approval Route to send to communication',email);
+
 
     //Find the type of file... such as pdf, doc, jpeg, png...
   const mimeType = mimeTypes.lookup(signature.name) || 'application/octet-stream'; // Default to binary if MIME type is not found
   
-  console.log("signature", signature)
+ 
 
   // Email configuration....
   const transporter = nodemailer.createTransport({
@@ -53,7 +53,7 @@ export async function POST (request, res) {
   try {
     // Send the email
     const info = await transporter.sendMail(mailOptions);
-    console.log('Email sent:', info.response);
+  
     return Response.json({ message: 'Email sent successfully!' });
   } catch (error) {
     console.error('Error sending email:', error);

@@ -8,7 +8,7 @@ export async function NodeAction (formData){
   });
 
   // Log the object with all form values
-  console.log(formDataObject);
+  // console.log(formDataObject);
 
 
   // console.log("formData", formData)

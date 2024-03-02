@@ -20,7 +20,7 @@ const Page = () => {
   //       }
   //       const data = await response.json();
   //       setCommunications(data.users);
-  //       console.log("option array:", options[0].description);
+  //    
   //     } catch (error) {
   //       console.error("Error fetching data:", error);
   //     }

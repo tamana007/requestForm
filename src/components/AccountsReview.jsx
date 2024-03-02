@@ -3,10 +3,9 @@ import React, { useState, useRef, useEffect } from "react";
 import SignatureCanvas from "react-signature-canvas";
 import styles from "../Style/DirectorReview.module.css";
 import { useSearchParams } from "next/navigation";
-import { FaHandPointDown } from 'react-icons/fa';
-import { FaSave } from 'react-icons/fa';
-import { FaPaperPlane } from 'react-icons/fa';
-import { FaPaperclip } from 'react-icons/fa';
+import { FaHandPointDown } from "react-icons/fa";
+import { FaPaperclip } from "react-icons/fa";
+import { Suspense } from "react";
 
 function AccountsReview() {
   const [signatureImage, setSignatureImage] = useState({});
@@ -17,7 +16,7 @@ function AccountsReview() {
   const [secondAttachement, setSecondAttachement] = useState(null);
 
   const id = searchParams.get("id");
-  const email=searchParams.get("email");
+  const email = searchParams.get("email");
 
   const saveAcountSignature = async () => {
     //Save Account's Signature to Databasse
@@ -27,15 +26,15 @@ function AccountsReview() {
     // console.log("signature image", signature)
     // Convert base64-encoded image data to a Blob object
     const blob = await (await fetch(signature)).blob();
-    console.log("blob", blob);
+    // console.log("blob", blob);
 
     // Create a FormData object
     const formData = new FormData();
 
     // Append the Blob object to the FormData object
     formData.append("signature", blob, "image.png");
-    console.log("signiture", formData);
-    console.log(typeof formData);
+    // console.log("signiture", formData);
+    // console.log(typeof formData);
 
     try {
       const savetoDatabase = await fetch(`/api/saveAccountSignature?id=${id}`, {
@@ -159,45 +158,67 @@ function AccountsReview() {
   };
 
   return (
-    <div className={styles.centered}>
-      <h1 className={styles.title}>Account's Review Page</h1>
-      <p className={styles.subtitle}style={{ marginBottom: '10px' }}>
-      Please Sign at right center above the line 
-        <FaHandPointDown style={{ verticalAlign: 'middle', marginLeft: '5px' }} size={30} />
-        using mouse curser 
-      </p>
-      {/* <h2>{attachment.approvedAmount}</h2> */}
-      <div>
-        <label className={styles.directorSignature}>Account's Signature:</label>
-        <SignatureCanvas
-          ref={signatureCanvasRef}
-          canvasProps={{
-            width: 400,
-            height: 150,
-            className: "signature-canvas",
+    <Suspense>
+      <div className={styles.centered}>
+        <h1 className={styles.title}>Account's Review Page</h1>
+        <p className={styles.subtitle} style={{ marginBottom: "10px" }}>
+          Please Sign at right center above the line
+          <FaHandPointDown
+            style={{ verticalAlign: "middle", marginLeft: "5px" }}
+            size={30}
+          />
+          using mouse curser
+        </p>
+        {/* <h2>{attachment.approvedAmount}</h2> */}
+        <div>
+          <label className={styles.directorSignature}>
+            Account's Signature:
+          </label>
+          <SignatureCanvas
+            ref={signatureCanvasRef}
+            canvasProps={{
+              width: 400,
+              height: 150,
+              className: "signature-canvas",
+            }}
+          />
+        </div>
+        <hr className={styles.signatureLine} />
+        <button
+          className={styles.saveSignaturebtn}
+          onClick={saveAcountSignature}
+        >
+          Save Signature
+        </button>
+        <button className={styles.sendSignaturebtn} onClick={handleSendEmail}>
+          Send to Communication
+        </button>
+        <button
+          className={styles.saveSignaturebtn}
+          onClick={() => {
+            handleButtonClick(
+              viewUser.attachement,
+              viewUser.attachementMimeType
+            );
           }}
-        />
-      </div>
-      <hr className={styles.signatureLine} />
-      <button className={styles.saveSignaturebtn} onClick={saveAcountSignature}>Save Signature</button>
-      <button className={styles.sendSignaturebtn} onClick={handleSendEmail}>Send to Communication</button>
-      <button className={styles.saveSignaturebtn}
-        onClick={() => {
-          handleButtonClick(viewUser.attachement, viewUser.attachementMimeType);
-        }}
-      >
-        Check First Attachment  <FaPaperclip className="attach-icon" />
-      </button>
-      <button className={styles.sendSignaturebtn}
-        onClick={() => {
-          handleButtonClick(viewUser.secondAttachement, viewUser.secondAttachementMimeType);
-        }}
-      >
-        Check Second Attachment  <FaPaperclip className="attach-icon" />
-      </button>
+        >
+          Check First Attachment <FaPaperclip className="attach-icon" />
+        </button>
+        <button
+          className={styles.sendSignaturebtn}
+          onClick={() => {
+            handleButtonClick(
+              viewUser.secondAttachement,
+              viewUser.secondAttachementMimeType
+            );
+          }}
+        >
+          Check Second Attachment <FaPaperclip className="attach-icon" />
+        </button>
 
-      {/* {signatureImage && <img src={signatureImage} />} */}
-    </div>
+        {/* {signatureImage && <img src={signatureImage} />} */}
+      </div>
+    </Suspense>
   );
 }
 

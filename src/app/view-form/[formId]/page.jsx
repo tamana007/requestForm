@@ -1,25 +1,37 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
+// import { useRouter } from 'next/router';
+import { useRouter } from "next/navigation"
+import Link from 'next/link';
 import ReactDOMServer from "react-dom/server";
 import html2pdf from "html2pdf.js";
 import Logo from "@/components/Logo";
-import Print from "@/components/print";
 import styles from "../../../Style/tableData.module.css";
 // import styles from '../Style/DirectorReview.module.css'; // Create a CSS file for styling
-import { FaSave } from 'react-icons/fa';
-import { FaPaperPlane } from 'react-icons/fa';
 import { FaPaperclip } from 'react-icons/fa';
+import { FaPaperPlane } from "react-icons/fa";
+
 
 function Page({ params }) {
+  // const router=useRouter();
+  const router = useRouter();
+
   const id = params.formId;
   const [viewUser, setViewUser] = useState({});
   const [signatureImageUrl, setSignatureImageUrl] = useState(null);
   const [accountImageUrl, setAccountSignature] = useState(null);
 
+  const handleSendToVendor=()=>{
+    // router.push('./Vendor')
+    console.log('clicked');
+      
+      }
+
   useEffect(() => {
     const fetchFormData = async () => {
       try {
+
         // Let's send params.formId to API
         const res = await fetch(`/api/view-form?id=${params.formId}`);
 
@@ -47,16 +59,13 @@ function Page({ params }) {
           const accountsignatureBlob = new Blob([accountdecodeSignature], {
             type: "image/png",
           });
-          const imageUrl = URL.createObjectURL(signatureBlob);
           setSignatureImageUrl(imgString);
-          const accountImgurl = URL.createObjectURL(accountsignatureBlob);
           setAccountSignature(accountSignatureImg);
         }
 
-        console.log("check data.user", data.user);
-        console.log("view user", viewUser);
-        const final = data.user;
-        console.log("final", final.socialMediaAd);
+        // console.log("check data.user", data.user);
+        // console.log("view user", viewUser);
+        // console.log("final", final.socialMediaAd);
       } catch (error) {
         console.error("Error fetching form data:", error);
       }
@@ -307,7 +316,7 @@ function Page({ params }) {
   //.........................................................
 
   function convertTopdf(file, mimeType) {
-    console.log("mimetyper", mimeType);
+    // console.log("mimetyper", mimeType);
     const byteArray = Uint8Array.from(atob(file), (c) => c.charCodeAt(0));
     const blob = new Blob([byteArray], { type: mimeType });
     // Create a URL for the Blob
@@ -316,7 +325,7 @@ function Page({ params }) {
   }
 
   const handleButtonClick = async (file, mimeType) => {
-    console.log("MIME type:", mimeType); // Log the MIME type to verify its value
+    // console.log("MIME type:", mimeType); // Log the MIME type to verify its value
     // console.log('invoice',test);
 
     // Check if the MIME type is for a Word document
@@ -336,17 +345,10 @@ function Page({ params }) {
   };
 
   //....................................................
-
+ 
   // Function to export content as PDF
   const exportAsPDF = () => {
     return new Promise((resolve, reject) => {
-      const options = {
-        margin: 10,
-        filename: "exported_document.pdf",
-        image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { scale: 4 },
-        jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
-      };
 
       html2pdf()
         .from(printElement)
@@ -592,7 +594,7 @@ function Page({ params }) {
                 )
               }
             >
-              click to see first attachments: <FaPaperclip className="attach-icon" />
+              Click to see first attachments: <FaPaperclip className="attach-icon" />
             </button>
             <button className={styles.sendSignaturebtn}
               onClick={() =>
@@ -602,8 +604,21 @@ function Page({ params }) {
                 )
               }
             >
-              click to see second attachments:<FaPaperclip className="attach-icon" />
+              Click to see second attachments:<FaPaperclip className="attach-icon" />
             </button>
+
+            {/* <button className={styles.saveSignaturebtn}
+             
+              onClick={handleSendToVendor}
+            >
+              Send To Vendor:<FaPaperPlane style={{ marginLeft: "5px" }} />
+            </button> */}
+
+<button className={styles.saveSignaturebtn} >
+        <Link href="../Vendor">
+          Send to Vendor 
+        </Link>
+      </button>
           </div>
         </div>
       </div>

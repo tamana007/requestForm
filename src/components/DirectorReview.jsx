@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import axios from "axios";
 import SignatureCanvas from "react-signature-canvas";
 import styles from "../Style/DirectorReview.module.css"; // Create a CSS file for styling
 import { useSearchParams } from "next/navigation";
@@ -8,6 +7,7 @@ import { FaHandPointDown } from "react-icons/fa";
 import { FaSave } from "react-icons/fa";
 import { FaPaperPlane } from "react-icons/fa";
 import { FaPaperclip } from "react-icons/fa";
+import { Suspense } from "react";
 
 // import useFormStore from './store'; // Import the Zustand store
 
@@ -166,68 +166,70 @@ function DirectorReview() {
   }, []);
 
   return (
-    <div className={styles.centered}>
-      {/* <h1 className={styles.title}>Please Sign here to approve</h1> */}
-      <h1 className={styles.title}>Director's Review Page</h1>
-      <p className={styles.subtitle} style={{ marginBottom: "10px" }}>
-        Please Sign at right center above the line
-        <FaHandPointDown
-          style={{ verticalAlign: "middle", marginLeft: "5px" }}
-          size={30}
-        />
-        using mouse curser
-      </p>
+    <Suspense>
+      <div className={styles.centered}>
+        {/* <h1 className={styles.title}>Please Sign here to approve</h1> */}
+        <h1 className={styles.title}>Director's Review Page</h1>
+        <p className={styles.subtitle} style={{ marginBottom: "10px" }}>
+          Please Sign at right center above the line
+          <FaHandPointDown
+            style={{ verticalAlign: "middle", marginLeft: "5px" }}
+            size={30}
+          />
+          using mouse curser
+        </p>
 
-      <div>
-        <label className={styles.directorSignature}>
-          Director's Signature:
-        </label>
-        <SignatureCanvas
-          ref={signatureCanvasRef}
-          canvasProps={{
-            width: 400,
-            height: 150,
-            className: "signature-canvas",
-          }}
-        />
-        <hr className={styles.signatureLine}></hr>
+        <div>
+          <label className={styles.directorSignature}>
+            Director's Signature:
+          </label>
+          <SignatureCanvas
+            ref={signatureCanvasRef}
+            canvasProps={{
+              width: 400,
+              height: 150,
+              className: "signature-canvas",
+            }}
+          />
+          <hr className={styles.signatureLine}></hr>
 
-        <br />
-        <button
-          className={styles.saveSignaturebtn}
-          onClick={handleSaveSignature}
-        >
-          First Click to Save
-          <FaSave style={{ marginLeft: "5px" }} />
-        </button>
+          <br />
+          <button
+            className={styles.saveSignaturebtn}
+            onClick={handleSaveSignature}
+          >
+            First Click to Save
+            <FaSave style={{ marginLeft: "5px" }} />
+          </button>
 
-        <button className={styles.sendSignaturebtn} onClick={handleSendEmail}>
-          Send to Account <FaPaperPlane style={{ marginLeft: "5px" }} />
-        </button>
-        <button
-          className={styles.saveSignaturebtn}
-          onClick={() => {
-            handleButtonClick(
-              viewUser.attachement,
-              viewUser.attachementMimeType
-            );
-          }}
-        >
-          Check First Attachment <FaPaperclip className="attach-icon" />
-        </button>
-        <button
-          className={styles.sendSignaturebtn}
-          onClick={() => {
-            handleButtonClick(
-              viewUser.secondAttachement,
-              viewUser.secondAttachementMimeType
-            );
-          }}
-        >
-          Check Second Attachment <FaPaperclip className="attach-icon" />
-        </button>
+          <button className={styles.sendSignaturebtn} onClick={handleSendEmail}>
+            Send to Account <FaPaperPlane style={{ marginLeft: "5px" }} />
+          </button>
+          <button
+            className={styles.saveSignaturebtn}
+            onClick={() => {
+              handleButtonClick(
+                viewUser.attachement,
+                viewUser.attachementMimeType
+              );
+            }}
+          >
+            Check First Attachment <FaPaperclip className="attach-icon" />
+          </button>
+          <button
+            className={styles.sendSignaturebtn}
+            onClick={() => {
+              handleButtonClick(
+                viewUser.secondAttachement,
+                viewUser.secondAttachementMimeType
+              );
+            }}
+          >
+            Check Second Attachment <FaPaperclip className="attach-icon" />
+          </button>
+        </div>
       </div>
-    </div>
+    </Suspense>
   );
 }
 

@@ -16,29 +16,22 @@ export async function POST(request, res) {
   const url = new URL(request.url);
   const id = url.searchParams.get("id");
   const accountEmail = url.searchParams.get("dir");
-  console.log(
-    "id from send signatre to email route --------------$$$$$$$$",
-    id
-  );
-  console.log(
-    "Account email from formData received In Director Route--------------------------------------------------------------------------",
-    accountEmail
-  );
-  // console.log('Check formdata0000000000000000000000000000000',formData);
+
+
+
   const getForm = await User.findOne({ _id: id });
-  // console.log('Form Received*****************************',getForm);
+ 
 
   let arrayBuffer = await signature.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
 
-  console.log("getFormProperties....", getForm.socialMediaAd, getForm.bussinessCard)
-  console.log("getForm", typeof getForm)
+ 
 
 
   // Convert the buffer to a base64 encoded string
   const base64String = buffer.toString("base64");
   const imgforEmail = "data:image/png;base64," + base64String
-  // console.log("base6444444444444444444444444", imgforEmail)
+
 
 
   //Find the type of file... such as pdf, doc, jpeg, png...
@@ -300,7 +293,7 @@ export async function POST(request, res) {
   try {
     // Send the email
     const info = await transporter.sendMail(mailOptions);
-    console.log("Email sent:", info.response);
+   
     return Response.json({ message: "Email sent successfully!" });
   } catch (error) {
     console.error("Error sending email:", error);

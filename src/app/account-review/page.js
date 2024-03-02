@@ -1,5 +1,5 @@
 import React from 'react'
-import AccountsReview from './account-review'
+import AccountsReview from '../../components/account-review'
 import Logo from '@/components/Logo'
 
 function page() {

@@ -21,6 +21,7 @@ function TempComponent({ directorFunc }) {
   const [attachment, setAttachment] = useState(null);
   const [secondAttachment, setSecondAttachment] = useState(null);
   const [directorEmail, setDirectorEmail] = useState("");
+  const[yourName,setYourname]=useState("");
   const [anyOther, setAnyOther] = useState("");
   const [answers, setAnswers] = useState(
     questions.reduce((acc, question) => {
@@ -30,8 +31,17 @@ function TempComponent({ directorFunc }) {
   );
   const handleDirectorEmailChnage = (e) => {
     setDirectorEmail(e.target.value);
-    console.log("director email", directorEmail);
+    // console.log("director email", directorEmail);
   };
+  const handleYournameChange = (e) => {
+    setYourname(e.target.value);
+    // console.log('tour name',yourName);
+    // console.log("director email", directorEmail);
+  };
+  // const handleYournameChange=(e)=>{
+  //   setYourname(e.target.value);
+  //   console.log('tour name',yourName);
+  // }
 
   const handleCheckboxChange = (option) => {
     setPrintOptions({
@@ -59,7 +69,8 @@ function TempComponent({ directorFunc }) {
     formData.append("file2", secondAttachment);
     formData.append("directorEmail", directorEmail);
     formData.append("anyOtherItem", anyOther);
-
+    // formData.append("yourName",yourName);
+console.log('answers',answers);
     // console.log('check Form data',formData);
     //loop through answers object and Append its keys and values to formData..
 
@@ -169,24 +180,18 @@ function TempComponent({ directorFunc }) {
                       onChange={handleDirectorEmailChnage}
                       required
                     />
-                  ) : (
-                    // <input
-                    // type="text"
-                    // value={answers[question.key]}
-                    // onChange={(e) => handleAnswerChange(question, e.target.value)}
-                    // required
-                    // />}
-                    // <br />
-                    // {question.description === "Any other (Please Specify)" ? (
-                    //   <textarea
-                    //     id={question.key}
-                    //     value={answers[question.key]}
-                    //     onChange={(e) =>
-                    //       handleAnswerChange(question, e.target.value)
-                    //     }
-                    //     rows="4"
-                    //   />
-                    // ) :
+                  ) 
+                  // : question.key === "yourName" ? (
+                  //   <input
+                  //     type="text"
+                  //     value={yourName}
+                  //     onChange={handleYournameChange}
+                  //     required
+                  //   />
+                  // ) 
+                  
+                  : (
+                    
                     <input
                       // className='questionInput'
                       type="text"
