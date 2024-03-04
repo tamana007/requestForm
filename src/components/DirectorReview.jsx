@@ -22,7 +22,7 @@ function DirectorReview() {
   const search = searchParams.get("directorEmail");
   const id = searchParams.get("id");
   const directorEmail = searchParams.get("email");
-  console.log("params", search, id);
+  // console.log("params", search, id);
   // console.log('cHECK DIRECTOR EMAIL FOR ACCOUNT',directorEmail);
 
   //SaveSignature API
@@ -52,7 +52,7 @@ function DirectorReview() {
   //.........................................................
 
   function convertTopdf(file, mimeType) {
-    console.log("mimetyper", mimeType);
+    // console.log("mimetyper", mimeType);
     const byteArray = Uint8Array.from(atob(file), (c) => c.charCodeAt(0));
     const blob = new Blob([byteArray], { type: mimeType });
     // Create a URL for the Blob
@@ -61,7 +61,7 @@ function DirectorReview() {
   }
 
   const handleButtonClick = async (file, mimeType) => {
-    console.log("MIME type:", mimeType); // Log the MIME type to verify its value
+    // console.log("MIME type:", mimeType); // Log the MIME type to verify its value
     // console.log('invoice',test);
 
     // Check if the MIME type is for a Word document
@@ -93,8 +93,8 @@ function DirectorReview() {
 
     // Append the Blob object to the FormData object
     formData.append("signature", blob, "image.png");
-    console.log("signiture", formData);
-    console.log(typeof formData);
+    // console.log("signiture", formData);
+    // console.log(typeof formData);
 
     try {
       const response = await fetch(`/api/saveSignature?id=${id}`, {

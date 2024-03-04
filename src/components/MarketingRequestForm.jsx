@@ -29,7 +29,7 @@ const MarketingRequestForm = () => {
   );
 
   const handleCheckboxChange = (option) => {
-    console.log("hello", printOptions)
+    // console.log("hello", printOptions)
     setPrintOptions({
       ...printOptions,
       [option]: !printOptions[option],
@@ -43,12 +43,12 @@ const MarketingRequestForm = () => {
     });
   };
 
-  console.log("printOption", printOptions)
+  // console.log("printOption", printOptions)
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Perform submission logic here, e.g., send data to server
-    console.log("Submitted:", { printOptions, programName, answers });
+    // console.log("Submitted:", { printOptions, programName, answers });
   };
 
   const handleAttachmentChange = (e) => {

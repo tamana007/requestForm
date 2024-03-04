@@ -5,7 +5,7 @@ import { NodeAction } from "@/data/action";
 import Link from "next/link";
 import DirectorReview from "./DirectorReview";
 import connectToDatabase from "@/db/db";
-import useFormStore from "@/utils/store"; // Import the Zustand store
+import useFormStore from "@/utils/useSuccess"; // Import the Zustand store
 import { FaPaperPlane } from "react-icons/fa";
 
 function TempComponent({ directorFunc }) {
@@ -21,7 +21,7 @@ function TempComponent({ directorFunc }) {
   const [attachment, setAttachment] = useState(null);
   const [secondAttachment, setSecondAttachment] = useState(null);
   const [directorEmail, setDirectorEmail] = useState("");
-  const[yourName,setYourname]=useState("");
+  const [yourName, setYourname] = useState("");
   const [anyOther, setAnyOther] = useState("");
   const [answers, setAnswers] = useState(
     questions.reduce((acc, question) => {
@@ -65,12 +65,18 @@ function TempComponent({ directorFunc }) {
 
     //append file to formData...
     const formData = new FormData();
-    formData.append("file1", attachment);
-    formData.append("file2", secondAttachment);
     formData.append("directorEmail", directorEmail);
+    
+    if (!!attachment) {
+      formData.append("file1", attachment);
+    }
+    if (!!secondAttachment) {
+      formData.append("file2", secondAttachment);
+    }
+
     formData.append("anyOtherItem", anyOther);
     // formData.append("yourName",yourName);
-console.log('answers',answers);
+    // console.log("answers", answers);
     // console.log('check Form data',formData);
     //loop through answers object and Append its keys and values to formData..
 
@@ -83,8 +89,8 @@ console.log('answers',answers);
       formData.append(property, answers[property]);
     }
 
-    console.log("Form Data see", formData);
-    setFormData(formData.directorEmail);
+    // console.log("Form Data see", formData);
+    // setFormData(formData.directorEmail);
 
     const res = await fetch("/api/submit-form", {
       method: "POST",
@@ -97,7 +103,7 @@ console.log('answers',answers);
   const handleAttachmentChange = (e) => {
     const file = e.target.files[0];
     setAttachment(file);
-    console.log("file", file);
+    // console.log("file", file);
   };
 
   async function NodeActionReturn(formData) {
@@ -107,7 +113,7 @@ console.log('answers',answers);
   const handleSecondAttachmentChange = (e) => {
     const file = e.target.files[0];
     setSecondAttachment(file);
-    console.log("file", file);
+    // console.log("file", file);
   };
 
   async function NodeActionReturn(formData) {
@@ -127,7 +133,7 @@ console.log('answers',answers);
       });
     }
     useEffect(() => {
-      console.log("zustand data", formData);
+      // console.log("zustand data", formData);
     }, [formData]);
   }
 
@@ -146,7 +152,7 @@ console.log('answers',answers);
           </label>
           {options.map((option) => (
             <div key={option.key}>
-              <div  className="checkbox-item">
+              <div className="checkbox-item">
                 <input
                   type="checkbox"
                   id={option.key}
@@ -180,18 +186,16 @@ console.log('answers',answers);
                       onChange={handleDirectorEmailChnage}
                       required
                     />
-                  ) 
-                  // : question.key === "yourName" ? (
-                  //   <input
-                  //     type="text"
-                  //     value={yourName}
-                  //     onChange={handleYournameChange}
-                  //     required
-                  //   />
-                  // ) 
-                  
-                  : (
-                    
+                  ) : (
+                    // : question.key === "yourName" ? (
+                    //   <input
+                    //     type="text"
+                    //     value={yourName}
+                    //     onChange={handleYournameChange}
+                    //     required
+                    //   />
+                    // )
+
                     <input
                       // className='questionInput'
                       type="text"
@@ -237,24 +241,10 @@ console.log('answers',answers);
             </div>
           </div>
         </div>
-
-        {/* <div className="sendSignaturebtn"> */}
-        {/* <Link href="/director-review"> */}
         <button type="submit" className="sendSignaturebtn">
           Send to Director's Approval{" "}
           <FaPaperPlane style={{ marginLeft: "5px" }}></FaPaperPlane>
         </button>
-        {/* </Link> */}
-        {/* <Link href="/account-review"> */}
-        {/* <button type="submit" className="account"> */}
-        {/* Send to Account's Approval */}
-        {/* </button> */}
-        {/* </Link> */}
-
-        {/* <button type="submit" className="vendor"> */}
-        {/* Submit to Vendor */}
-        {/* </button> */}
-        {/* </div> */}
       </form>
     </div>
   );

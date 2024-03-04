@@ -51,7 +51,7 @@ function AccountsReview() {
 
   useEffect(() => {
     const handleCheckAttachment = async () => {
-      console.log("attachment clicked");
+      // console.log("attachment clicked");
       const res = await fetch(`/api/view-form?id=${id}`);
       const data = await res.json();
 
@@ -93,7 +93,7 @@ function AccountsReview() {
   //.........................................................
 
   function convertTopdf(file, mimeType) {
-    console.log("mimetyper", mimeType);
+    // console.log("mimetyper", mimeType);
     const byteArray = Uint8Array.from(atob(file), (c) => c.charCodeAt(0));
     const blob = new Blob([byteArray], { type: mimeType });
     // Create a URL for the Blob

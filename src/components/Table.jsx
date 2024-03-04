@@ -28,8 +28,10 @@ function TableComp({ handleView }) {
         const response = await fetch("/api/formsTable");
         const data = await response.json();
         setForms(data.users);
+        // console.log("data", data)
       } catch (error) {
         console.log(error);
+        
       } finally {
         setLoading(false);
       }
@@ -58,25 +60,14 @@ function TableComp({ handleView }) {
     // console.log('form',forms);
   };
 
-  // const handleEdit = async (id) => {
-  //   try {
-  //     // Make DELETE request to delete the form with the specified ID
-  //     await fetch(`/api/edit-form?id=${id}`, {
-  //       method: "DELETE",
-  //     });
-  //     // Update state to remove the deleted form from the forms array
-  //     setForms(forms.filter((form) => form._id !== id));
-  //   } catch (error) {
-  //     console.log("error deleting", error);
-  //   }
-  // };
+
 
   return (
     <>
       <Logo />
       <div style={{ padding: "20px" }}>
         <div className={styles.requestTitle}>
-          <h2>List of All Incoming Requests ...</h2>
+          <h2 className={styles.title}>List of All Incoming Requests ...</h2>
         </div>
         {loading ? (
           <div
@@ -97,8 +88,7 @@ function TableComp({ handleView }) {
             <Table>
               <TableHead>
                 <TableRow className={styles["customTableHeader"]}>
-                  <TableCell>View</TableCell>
-                  {/* <TableCell>Eddit</TableCell> */}
+                  <TableCell >View</TableCell>
                   <TableCell>Delete</TableCell>
                   <TableCell>ID</TableCell>
                   <TableCell>Social Media Ad</TableCell>
@@ -158,7 +148,7 @@ function TableComp({ handleView }) {
                     <TableCell>{form?.marketing?.toString()}</TableCell>
                     <TableCell>{form?.anyOther?.toString()}</TableCell>
                     <TableCell>{form?.programName?.toString()}</TableCell>
-                    <TableCell>{form?.name?.toString()}</TableCell>
+                    <TableCell>{form?.yourName?.toString()}</TableCell>
                     <TableCell>{form?.directorEmail?.toString()}</TableCell>
                     <TableCell>{form?.size?.toString()}</TableCell>
                     <TableCell>{form?.sideNote?.toString()}</TableCell>

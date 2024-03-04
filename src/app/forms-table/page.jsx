@@ -1,14 +1,14 @@
-'use client'
-import React, { useState } from 'react'
-import TableComp from '@/components/Table'
-import ViewBtn from '@/components/ViewBtn'
+"use client";
+import React, { useState } from "react";
+import TableComp from "@/components/Table";
+import ViewBtn from "@/components/ViewBtn";
 
 function page() {
-  const [clickView,setClickView]=useState(false);
+  const [clickView, setClickView] = useState(false);
 
   function handleView() {
     setClickView(true);
-    console.log("viewed",clickView);
+    // console.log("viewed", clickView);
   }
   // function handleEdit() {
   //   console.log("editted");
@@ -19,12 +19,13 @@ function page() {
 
   return (
     <>
-    {clickView?
-    <ViewBtn/>
-    :  <TableComp handleView={handleView} handleDelete={handleDelete} />}
-    
+      {clickView ? (
+        <ViewBtn />
+      ) : (
+        <TableComp handleView={handleView} handleDelete={handleDelete} />
+      )}
     </>
-  )
+  );
 }
 
-export default page
+export default page;

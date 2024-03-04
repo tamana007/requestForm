@@ -51,7 +51,7 @@ const questions = [
     key: 'programName'
   },
   {
-    description: 'Your Name:',
+    description: 'What is your name?',
     key: 'yourName'
   },
   {

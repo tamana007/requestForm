@@ -14,19 +14,16 @@ import { FaPaperPlane } from "react-icons/fa";
 
 
 function Page({ params }) {
-  // const router=useRouter();
   const router = useRouter();
-
   const id = params.formId;
   const [viewUser, setViewUser] = useState({});
   const [signatureImageUrl, setSignatureImageUrl] = useState(null);
   const [accountImageUrl, setAccountSignature] = useState(null);
 
-  const handleSendToVendor=()=>{
-    // router.push('./Vendor')
-    console.log('clicked');
+  // const handleSendToVendor=()=>{
+  //   console.log('clicked');
       
-      }
+  //     }
 
   useEffect(() => {
     const fetchFormData = async () => {
@@ -44,7 +41,6 @@ function Page({ params }) {
 
         // Decode the signature image and set the URL
         if (data.user.signature) {
-          // console.log(data.user.signature)
           const base64String = data?.user?.signature.toString("base64");
           const base64Account = data?.user?.accountSignature.toString("base64");
           // console.log("ACCOUNT SIGNAUTERE", base64Account);
@@ -62,10 +58,6 @@ function Page({ params }) {
           setSignatureImageUrl(imgString);
           setAccountSignature(accountSignatureImg);
         }
-
-        // console.log("check data.user", data.user);
-        // console.log("view user", viewUser);
-        // console.log("final", final.socialMediaAd);
       } catch (error) {
         console.error("Error fetching form data:", error);
       }
@@ -130,7 +122,6 @@ function Page({ params }) {
                     id="data2"
                     name="data2"
                     checked={!!viewUser.brouchure}
-                    // checked={!!viewUser.brochure}
                   />
                   Brochure
                 </label>
@@ -227,7 +218,6 @@ function Page({ params }) {
                 Answer: {viewUser.name}
                 <p type="text" name="answer2" />
               </p>
-              {/* Add more questions and answers as needed */}
               <p>
                 Question 3: Director Email Address:
                 <br />
@@ -272,9 +262,6 @@ function Page({ params }) {
                   src={signatureImageUrl}
                   alt="Director's Signature"
                 />
-                {/* <hr/> */}
-                {/* </div> */}
-                {/* <div> */}
                 <p>Account Signature:</p>{" "}
                 <img
                   className={styles.signaturetwo}
@@ -325,8 +312,6 @@ function Page({ params }) {
   }
 
   const handleButtonClick = async (file, mimeType) => {
-    // console.log("MIME type:", mimeType); // Log the MIME type to verify its value
-    // console.log('invoice',test);
 
     // Check if the MIME type is for a Word document
     if (
@@ -494,23 +479,6 @@ function Page({ params }) {
                   Any other (Please Specify)
                 </label>
               </div>
-              {/* <div>
-              <label htmlFor="data2">
-                <input
-                  disabled
-                  readOnly
-                  type="checkbox"
-                  id="data2"
-                  name="data2"
-                  checked={!!viewUser.anyOther}
-
-                />
-                What is your program name?
-              </label>
-            </div> */}
-
-              {/* Add more checkboxes as needed */}
-              {/* </div> */}
             </div>
             <div className="questions">
               <p>
@@ -521,10 +489,9 @@ function Page({ params }) {
               <p>
                 Question 2: Your Name:
                 <br />
-                Answer: {viewUser.name}
+                Answer: {viewUser.yourName}
                 <p type="text" name="answer2" />
               </p>
-              {/* Add more questions and answers as needed */}
               <p>
                 Question 3: Director Email Address:
                 <br />
@@ -572,8 +539,6 @@ function Page({ params }) {
                 src={signatureImageUrl}
                 alt="Director's Signature"
               />
-              {/* </div> */}
-              {/* <div> */}
               <span>Account Signature:</span>{" "}
               <img
                 className={styles.signaturetwo}
@@ -582,7 +547,6 @@ function Page({ params }) {
               />
             </div>
           </div>
-          {/* <button type="submit">Submit</button> */}
           <hr />
           <div className={styles.btncontainer}>
             <button className={styles.sendSignaturebtn} onClick={() => exportAsPDF()}>Export as PDF</button>
@@ -607,16 +571,9 @@ function Page({ params }) {
               Click to see second attachments:<FaPaperclip className="attach-icon" />
             </button>
 
-            {/* <button className={styles.saveSignaturebtn}
-             
-              onClick={handleSendToVendor}
-            >
-              Send To Vendor:<FaPaperPlane style={{ marginLeft: "5px" }} />
-            </button> */}
-
 <button className={styles.saveSignaturebtn} >
-        <Link href="../Vendor">
-          Send to Vendor 
+        <Link href="../Vendor" className={styles.saveSignaturebtn}>
+          Send to Vendor <FaPaperPlane/>
         </Link>
       </button>
           </div>

@@ -10,33 +10,37 @@ import User from "@/db/model/User";
 export async function POST(request) {
   await connectToDatabase();
 
-  //Don't touch it...
+  // Don't touch it...
   const formData = await request.formData();
   const file1 = formData.get("file1");
   const file2 = formData.get("file2");
+
+  // console.log('File 2',file2);
   const directorEmail = formData.get("directorEmail");
-  // const yourName=formData.answer.get("yourName");
-  const yourName=formData.get("yourName");
-  console.log(formData,'----------------------------------------yourname');
 
   formData.delete("file1");
   formData.delete("file2");
   formData.delete("directorEmail");
 
-  let arrayBuffer1 = await file1.arrayBuffer();
-  let arrayBuffer2 = await file2.arrayBuffer();
+  let arrayBuffer1, arrayBuffer2, buffer1, buffer2, mimeType, mimeType2;
+  let file1base64String = null;
+  let file2base64String = null;
 
-  const buffer1 = Buffer.from(arrayBuffer1);
-  const buffer2 = Buffer.from(arrayBuffer2);
-  // Convert the Buffer to a base64 encoded string
-  const file1base64String = buffer1.toString("base64");
-  const file2base64String = buffer2.toString("base64");
+  if (!!file1) {
+    arrayBuffer1 = await file1.arrayBuffer();
+    buffer1 = Buffer.from(arrayBuffer1);
+    file1base64String = buffer1.toString("base64");
+    mimeType = mimeTypes.lookup(file1.name) || "application/octet-stream";
+  }
+  
+  if (!!file2) {
+    arrayBuffer2 = await file2.arrayBuffer();
+    buffer2 = Buffer.from(arrayBuffer2);
+    file2base64String = buffer2.toString("base64");
+    mimeType2 = mimeTypes.lookup(file2.name) || "application/octet-stream";
+  }
 
-  //Find the type of file... such as pdf, doc, jpeg, png...
-  const mimeType = mimeTypes.lookup(file1.name) || "application/octet-stream"; // Default to binary if MIME type is not found
-  const mimeType2 = mimeTypes.lookup(file2.name) || "application/octet-stream"; // Default to binary if MIME type is not found
-
-  //Change formData to an object...
+  // Change formData to an object...
   const formDataObject = {};
 
   let directorsEmail = "";
@@ -50,7 +54,7 @@ export async function POST(request) {
     }
   }
 
-  //Change string to boolean...
+  // Change string to boolean...
   Object.keys(formDataObject).forEach((item) => {
     if (formDataObject[item] === "true") {
       formDataObject[item] = true;
@@ -61,27 +65,21 @@ export async function POST(request) {
 
   const plainFormDataObject = reorderObject(formDataObject);
 
-
   formDataObject.attachementMimeType = mimeType;
   formDataObject.secondAttachementMimeType = mimeType2;
 
-
   formDataObject.attachement = file1base64String;
   formDataObject.secondAttachement = file2base64String;
-  formDataObject.directorEmail=directorEmail;
-  formDataObject.yourName=yourName;
-  // formDataObject.yourName=yourName;
-  // console.log('form data object',formDataObject);
+  formDataObject.directorEmail = directorEmail;
 
-  //DATABASE SETUP.....
+  // DATABASE SETUP.....
+  // console.log("formData", formDataObject);
   const res = await new User(formDataObject).save();
   const id = res._id;
 
-  // console.log("id", id);
-
   const url = `http://localhost:3000/director-review?id=${id}&email=${directorEmail}`;
 
-  //Email configuration....
+  // Email configuration....
   const transporter = nodemailer.createTransport({
     service: "Gmail",
     host: "smtp.gmail.com",
@@ -120,28 +118,32 @@ export async function POST(request) {
 
   const mailOptions = {
     from: "tamana.efatwira1@gmail.com",
-    // to: "tamana.efatwira2@gmail.com",
     to: directorEmail,
-
     subject: "Marketing E-request Form...",
     text: "Please find the attached file.",
     html: htmlContent,
-    attachments: [
-      {
-        filename: file1.name,
-        content: buffer1, // buffer1 is the buffer for the first attachment
-        encoding: "base64",
-        contentType: mimeType,
-      },
-      {
-        filename: file2.name,
-        content: buffer2, // buffer2 is the buffer for the second attachment
-        encoding: "base64",
-        contentType: mimeType2,
-      },
-      // ],
-    ],
+    attachments: [],
   };
+
+  // Add file1 attachment if it exists
+  if (file1) {
+    mailOptions.attachments.push({
+      filename: file1.name,
+      content: buffer1, // buffer1 is the buffer for the first attachment
+      encoding: "base64",
+      contentType: mimeType,
+    });
+  }
+
+  // Add file2 attachment if it exists
+  if (file2) {
+    mailOptions.attachments.push({
+      filename: file2.name,
+      content: buffer2, // buffer2 is the buffer for the second attachment
+      encoding: "base64",
+      contentType: mimeType2,
+    });
+  }
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
