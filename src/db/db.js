@@ -4,7 +4,7 @@ import mongoose from 'mongoose'
 
 async function connectToDatabase() {
   try {
-    const uri = 'mongodb+srv://tamana:tamana@cluster0.o8fimnz.mongodb.net/picss-app?retryWrites=true&w=majority';
+    const uri = 'mongodb+srv://vercel-admin-user:vercel@cluster0.o8fimnz.mongodb.net/picss-app?retryWrites=true&w=majority';
     await mongoose.connect(uri);
 
     mongoose.connection.on('connected', () => {
