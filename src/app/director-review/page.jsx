@@ -1,16 +1,19 @@
-'use client'
+"use client";
 
-import React from 'react'
-import DirectorReview from '../director-review'
-import Logo from '@/components/Logo'
+import React from "react";
+import DirectorReview from "../director-review";
+import Logo from "@/components/Logo";
+import { Suspense } from "react";
 
 function page() {
   return (
     <>
-    <Logo/>
-      <DirectorReview/>
+      <Suspense>
+        <Logo />
+        <DirectorReview />
+      </Suspense>
     </>
-  )
+  );
 }
 
-export default page
+export default page;

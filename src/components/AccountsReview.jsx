@@ -147,13 +147,7 @@ function AccountsReview() {
     } catch (error) {
       console.error("Error sending email:", error);
       alert("An error occurred while sending the email.");
-      // If successful response, fetch the image buffer data
-      // const imageData = await response.arrayBuffer();
-      // const blob = new Blob([imageData]);
-      // const imageUrl = URL.createObjectURL(blob);
-
-      // // Set the image URL to state to display it
-      // setSignatureImage(imageUrl);
+    
     }
   };
 
