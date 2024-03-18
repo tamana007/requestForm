@@ -94,6 +94,20 @@ export async function POST(request) {
         rejectUnauthorized: false,
       },
     });
+
+    await new Promise((resolve, reject) => {
+      // verify connection configuration
+      transporter.verify(function (error, success) {
+        if (error) {
+          console.log(error);
+          reject(error);
+        } else {
+          console.log("Server is ready to take our messages");
+          resolve(success);
+        }
+      });
+    });
+
     let htmlContent = "<h1>Marketing Request Form</h1>";
     htmlContent +=
       "<h2>All requests need to be submitted at least one-week in advance</h2>"; // Added h2 tag
@@ -146,13 +160,30 @@ export async function POST(request) {
       });
     }
 
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.error("Error sending email: ", error);
-      } else {
-        console.log("Email sent: ", info.response);
-      }
-    });
+
+    await new Promise((resolve, reject) => {
+      // send mail
+      transporter.sendMail(mailOptions, (err, info) => {
+          if (err) {
+              console.error(err);
+              reject(err);
+          } else {
+              console.log(info);
+              console.log("Email sent: ", info.response);
+              resolve(info);
+          }
+      });
+  });
+  
+
+    // transporter.sendMail(mailOptions, (error, info) => {
+    //   if (error) {
+    //     console.error("Error sending email: ", error);
+    //   } else {
+    //     console.log("Email sent: ", info.response);
+    //   }
+    // });
+
   } catch (e) {
     console.log(e);
   }
