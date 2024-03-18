@@ -267,7 +267,7 @@ export async function POST(request, res) {
        <hr /> 
       <div>
       <p>Director approval is attached!</p>
-        <span>Please Click the Link to Sign the Request: <link href ="http://localhost:3000/account-review">http://localhost:3000/account-review?id=${id}&email=${accountEmail} </link> </span>
+        <span>Please Click the Link to Sign the Request: <link href ="https://request-form.vercel.app/account-review">https://request-form.vercel.app/account-review?id=${id}&email=${accountEmail} </link> </span>
        
       </div>
       

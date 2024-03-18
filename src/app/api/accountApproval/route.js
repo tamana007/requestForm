@@ -39,7 +39,7 @@ export async function POST (request, res) {
     from: 'tamana.efatwira1@gmail.com',
     to: email,
     subject: 'Director Signature',
-    html: `<p>Request Approved by Account department! Click the link to access the request form:<link> http://localhost:3000/forms-table </link></p><img src="${signature}" alt="Director Signature"/>`,
+    html: `<p>Request Approved by Account department! Click the link to access the request form:<link> https://request-form.vercel.app/forms-table </link></p><img src="${signature}" alt="Director Signature"/>`,
     attachments: [
       {
         filename: 'attached-file',
