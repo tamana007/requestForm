@@ -78,7 +78,7 @@ export async function POST(request) {
     const res = await new User(formDataObject).save();
     const id = res._id;
 
-    const url = `https://request-form.vercel.app/?id=${id}&email=${directorEmail}`;
+    const url = `https://request-form.vercel.app/director-review?id=${id}&email=${directorEmail}`;
 
     // Email configuration....
     const transporter = nodemailer.createTransport({
