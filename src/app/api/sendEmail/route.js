@@ -17,15 +17,10 @@ export async function POST(request, res) {
   const id = url.searchParams.get("id");
   const accountEmail = url.searchParams.get("dir");
 
-
-
   const getForm = await User.findOne({ _id: id });
- 
 
   let arrayBuffer = await signature.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
-
- 
 
 
   // Convert the buffer to a base64 encoded string

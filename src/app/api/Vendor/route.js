@@ -94,12 +94,15 @@ export async function POST(req) {
     });
   }
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error("Error sending email: ", error);
-    } else {
-      console.log("Email sent: ", info.response);
-    }
+  await new Promise((resolve, reject) => {
+    // send mail
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error("Error sending email: ", error);
+      } else {
+        console.log("Email sent: ", info.response);
+      }
+    });
   });
 
   return Response.json("Email Has been Sent...");

@@ -25,8 +25,10 @@
 } */
 
 .logo-container {
+  
   margin-bottom: 10px; /* Add margin below the logo */
   margin-top: 10px;
+  height: 3rem;
 }
 .items-logo{
   width: 20px;
